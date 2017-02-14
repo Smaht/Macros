@@ -1,0 +1,43 @@
+[General]
+Macro Output Channel=/bc
+Max Response Distance=500
+Leash Length=250
+End MedBreak in Combat(On/Off)=On
+
+[Background]
+Idle Time Out (Min)=10
+Auto-Inventory Timer (Sec)=30
+Close Spellbook Timer (Sec)=30
+
+[Auto-Tribute]
+Auto-Tribute (On/Off)=On
+
+[Casting]
+Default Spell Set=Default
+Default Spell Gem=8
+Give Up Casting Time=15
+
+[Buff Requests]
+Allow Buff Requests (On/Off)=On
+Allowed PCs (When Requests [Off])=Guild,Raid
+
+[Assists]
+Auto-Assist (On/Off)=On
+Max Engage Distance=350
+AE Threat Range=100
+Acceptable Target Types=NPC,Pet
+
+[Loot]
+Auto-Loot Mode (Auto/Manual)=Auto
+Use MQ2LinkDB (On/Off)=Off
+Loot Link Channel (Requires MQ2LinkDB)=/bc
+Corpse Seek Radius=75
+
+[Sell]
+Destroy Unsold Items(On/Off)=Off
+
+[Wait4Rez]
+Wait4Rez (On/Off)=On
+Wait4Rez Alert (Beeps)=1
+Loot Bag Delay=20
+Loot Item Delay=2

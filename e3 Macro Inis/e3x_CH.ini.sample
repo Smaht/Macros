@@ -1,0 +1,71 @@
+[Skeleton]
+Chain#1 - Cleric#1=
+Chain#1 - Cleric#2=
+Chain#1 - Cleric#3=
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=
+Chain#1 - Type=CH
+
+[3Cler]
+Chain#1 - Cleric#1=Cleric1
+Chain#1 - Cleric#2=Cleric2
+Chain#1 - Cleric#3=Cleric3
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=40
+Chain#1 - Type=CH
+
+[7Cler]
+Chain#1 - Cleric#1=Cleric1
+Chain#1 - Cleric#2=Cleric2
+Chain#1 - Cleric#3=Cleric3
+Chain#1 - Cleric#4=Cleric4
+Chain#1 - Cleric#5=Cleric5
+Chain#1 - Cleric#6=Cleric6
+Chain#1 - Cleric#7=Cleric7
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=17
+Chain#1 - Type=CH
+
+[7ClerF]
+Chain#1 - Cleric#1=Cleric1
+Chain#1 - Cleric#2=Cleric2
+Chain#1 - Cleric#3=Cleric3
+Chain#1 - Cleric#4=Cleric4
+Chain#1 - Cleric#5=Cleric5
+Chain#1 - Cleric#6=Cleric6
+Chain#1 - Cleric#7=Cleric7
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=7
+Chain#1 - Type=Fast
+
+[4in4]
+Chain#1 - Cleric#1=Cleric1
+Chain#1 - Cleric#2=Cleric2
+Chain#1 - Cleric#3=Cleric3
+Chain#1 - Cleric#4=Cleric4
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=30
+Chain#1 - Type=CH
+Chain#2 - Cleric#1=Cleric5
+Chain#2 - Cleric#2=Cleric6
+Chain#2 - Cleric#3=Cleric7
+Chain#2 - Cleric#4=Cleric8
+Chain#2 - Tank#1=Warrior2
+Chain#2 - Tank#2=Warrior1
+Chain#2 - Timing=30
+Chain#2 - Type=CH
+
+[current]
+Chain#1 - Cleric#1=Cleric5
+Chain#1 - Cleric#2=Cleric6
+Chain#1 - Cleric#3=Cleric7
+Chain#1 - Cleric#4=Cleric8
+Chain#1 - Tank#1=Warrior1
+Chain#1 - Tank#2=Warrior2
+Chain#1 - Timing=30
+Chain#1 - Type=CH

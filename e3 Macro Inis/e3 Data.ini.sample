@@ -1,0 +1,21 @@
+[File Paths]
+Bot Settings=e3 Bot Inis\EQTitan-${Me.CleanName}.ini
+General Settings=e3 Macro Inis\General Settings.ini
+Advanced Settings=e3 Macro Inis\Advanced Settings.ini
+Tribute Settings=e3 Macro Inis\Tribute Settings.ini
+Saved Groups=e3 Macro Inis\Saved Groups.ini
+Item Timer Settings=e3 Macro Inis\Item Timers.ini
+Spell Aliases File=e3 Macro Inis\Spell Aliases.ini
+Spell List Files=Macro Inis\Spell List-${Me.Class.ShortName}.ini
+Enrage Settings=e3 Macro Inis\Enrage Settings.ini
+Loot Settings File=e3 Macro Inis\Loot Settings.ini
+Saved Routes=e3 Macro Inis\Saved Routes.ini
+Deployment Locations=e3 Macro Inis\Locations - Deployment.ini
+Engagement Locations=e3 Macro Inis\Locations - Engagement.ini
+Typical Buffs=e3 Macro Inis\Typical Buffs.ini
+Interesting Mobs=e3 Macro Inis\Interesting Mobs.ini
+CH Events=e3 Macro Inis\e3x_CH.ini
+
+[Class Specific Info]
+Rogue Sneak Attack Disciplines=Sneak Attack,Thief's Vengeance,Assassin's Strike,Kyv Strike,Ancient: Chaos Strike,Daggerfall,Razorarc,Swiftblade,Swiftblade Rk. II,Swiftblade Rk. III,Daggerlunge,Daggerlunge Rk. II,Daggerlunge Rk. III,Daggerswipe,Daggerswipe Rk. II,Daggerswipe Rk. III,Daggerstrike,Daggerstrike Rk. II,Daggerstrike Rk. III,Daggerthrust,Daggerthrust Rk. II,Daggerthrust Rk. III
+Warrior Provoke Disciplines=Provoke,Bellow,Berate,Incite,Bellow of the Mastruq,Ancient: Chaos Cry

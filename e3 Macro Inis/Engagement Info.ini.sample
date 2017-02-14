@@ -1,0 +1,9 @@
+[Skeleton]
+Tank Setup=^     Rampage=Yes^     Flurries=No^     AERampage=No^     Divine Intervention=YES^     Tank Discipline=Defensive^     AE DMG=
+Healer Setup=^     CH Rotation=4 Clerics^     Patch Heals=Everyone else^     HoTs=Shaman keep it on Smaht^     AE Heals=None
+Strategy=^     - 
+
+[TimeTherrisThule]
+Tank Setup=^     Rampage=Yes^     AERampage=No^     Divine Intervention=No^     AE DMG=AE mana drain
+Healer Setup=^     CH Rotation=4 Clerics^     Patch Heals=Everyone else^     HoTs=Shaman keep it on Warrior1^     AE Heals=None
+Strategy=^     - Don't use evasive/defensive but use 4 clerics^     - 4 adds at 75% / 50% / 10%

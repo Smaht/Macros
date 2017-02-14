@@ -1,0 +1,11 @@
+SUB Main
+
+	| ---------- Crap so I can call this properly from another macro
+	/echo Starting e3 base macro
+	/echo ... no really! starting e3 base macro ...
+
+	| ---------- Launch e3 with some class specific includes
+	/echo Starting e3_${Me.Class}
+	/mac e3x_${Me.Class}
+
+/return
