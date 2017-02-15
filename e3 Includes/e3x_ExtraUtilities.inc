@@ -499,7 +499,7 @@ SUB EVENT_checkTypicalBuffs(line)
 #EVENT interestingMobs "<#1#> Check for Interesting Mobs#*#"
 SUB EVENT_interestingMobs(line, cimActor)
 
-	| ---------- Exit if you are not Smaht
+	| ---------- Exit if you are not the one who called for it
 	/if (!${Me.Name.Equal[${cimActor}]}) /return
 
 	| ---------- Declare file path for the location of the Typical Buffs.ini

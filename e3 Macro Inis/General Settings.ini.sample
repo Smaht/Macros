@@ -41,3 +41,21 @@ Wait4Rez (On/Off)=On
 Wait4Rez Alert (Beeps)=1
 Loot Bag Delay=20
 Loot Item Delay=2
+
+[Class Leaders]
+Bard=
+Beastlord=
+Berserker=
+Cleric=
+Druid=
+Enchanter=
+Magician=Magician1
+Monk=
+Necromancer=
+Paladin=
+Ranger=
+Rogue=Rogue1
+Shadowknight=
+Shaman=
+Warrior=Warrior1
+Wizard=
