@@ -111,7 +111,7 @@ Sub WAR_Aliases
 SUB EVENT_DebuffTarget(line, SlowedTarget)
 
 	| ---------------- If I am not the single main toon, exit
-	/if (!${Me.CleanName.Equal[Smaht]}) /return
+	/if (!${Me.CleanName.Equal[${classLeader}]}) /return
 
 	| ---------------- Shaman slow
 	/if (${line.Find[yawn]}) {	
@@ -147,29 +147,7 @@ SUB EVENT_DebuffTarget(line, SlowedTarget)
 | -- Check whos properly connected to EQBC											   -|
 | --------------------------------------------------------------------------------------|
 
-#EVENT eqbcCheck "<#*#> EQBC Check"
-SUB EVENT_eqbcCheck
-
-	/declare NetBots_String string local ${NetBots.Client}
-	/varset NetBots_String ${NetBots_String.Replace[ ,,]}
-
-	/declare allChars string local Clickboom Clickdoom Clickfoom Flopp Iddybitty Iddyditty Iddyfitty Iddygitty Iddyhitty Iddyjitty Iddykitty Kwazyaxe Kwazybludgeon Kwazycleaver Kwazyclub Kwazyhatchet Kwazylance Kwazyspear Longview Longvision Mylift Mymove Myride Oomph Quacked Rallek Smaal Smaht Smrt Timee Tinee Tipee Tiqee Toama Tupper Whacked
-
-	/declare i int local
-	/for i 1 to 36
-		/if (!${Select[${allChars.Arg[${i}, ]},${NetBots_String}]}) /bc [+g+] ${allChars.Arg[${i}, ]} is missing ...
-
-	/next i
-
-/return
-
-
-
-
-
-
-
-
+| --------- Removed for the time being
 
 
 

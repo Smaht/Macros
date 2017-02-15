@@ -1833,6 +1833,9 @@ Sub basics_Setup
 	} else {
 		/declare Group_Ini string outer ${Ini[${MacroData_Ini},File Paths,Saved Groups]}
 	}
+
+	| ---------- Added by Smaht:  Configure a class leader variable if defined in General Settings
+	/if (${Ini[${genSettings_Ini},Class Leaders,${Me.Class}].Length}) /call IniToVar "${genSettings_Ini},Class Leaders,${Me.Class}" classLeader string outer
 	
 /if (${Debug} || ${Debug_Basics}) /echo <== basics_Setup -|
 /return

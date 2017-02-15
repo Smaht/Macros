@@ -205,7 +205,8 @@ Sub ROG_Aliases
 #event sewersExp "#1# tells you, 'Invite me to Sewers Expedition'"
 SUB EVENT_sewersExp(line, sewersTarget)
 
-	/if (!${Me.CleanName.Equal[Tupper]}) /return
+	| ---------- Exit if you aren't the classLeader
+	/if (!${Me.CleanName.Equal[${classLeader}]}) /return
 
 	/windowstate DynamicZoneWnd open
 

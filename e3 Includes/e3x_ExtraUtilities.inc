@@ -275,20 +275,6 @@ SUB EVENT_sewersGroup
 	/declare sewersGroupMember4 string local Kwazyhatchet
 	/declare sewersGroupMember5 string local Kwazybludgeon
 
-|**	/invite ${sewersGroupMember1}
-	/invite ${sewersGroupMember2}
-	/invite ${sewersGroupMember3}
-	/invite ${sewersGroupMember4}
-	/invite ${sewersGroupMember5}
-	/delay 10
-
-	/bct ${sewersGroupMember1} //invite
-	/bct ${sewersGroupMember2} //invite
-	/bct ${sewersGroupMember3} //invite
-	/bct ${sewersGroupMember4} //invite
-	/bct ${sewersGroupMember5} //invite
-	/delay 30
-**|
 	/dzadd ${sewersGroupMember1}
 	/dzadd ${sewersGroupMember2}
 	/dzadd ${sewersGroupMember3}
@@ -296,31 +282,6 @@ SUB EVENT_sewersGroup
 	/dzadd ${sewersGroupMember5}
 	/delay 10
 
-|	/bct ${sewersGroupMember1} //invite ${Me.CleanName}
-|	/target clear
-|	/delay 10
-|	/invite
-
-|**	/target ${sewersGroupMember1}
-	/delay 10
-	/notify DynamicZoneWnd DZ_Leader_Add leftmouseup
-
-	/target ${sewersGroupMember2}
-	/delay 10
-	/notify DynamicZoneWnd DZ_Leader_Add leftmouseup
-
-	/target ${sewersGroupMember3}
-	/delay 10
-	/notify DynamicZoneWnd DZ_Leader_Add leftmouseup
-
-	/target ${sewersGroupMember4}
-	/delay 10
-	/notify DynamicZoneWnd DZ_Leader_Add leftmouseup
-
-	/target ${sewersGroupMember5}
-	/delay 10
-	/notify DynamicZoneWnd DZ_Leader_Add leftmouseup
-**|
 	/delay 10
 	/bca //notify ConfirmationDialogBox Yes_Button leftmouseup
 
@@ -350,8 +311,8 @@ SUB EVENT_eqbcReconnect
 | -- Where locations are defined in the file "Locations - Deployment.ini"								 -|
 | --------------------------------------------------------------------------------------------------------|
 
-#EVENT Deploy "<#*#> Deploy: #1#"
-Sub EVENT_Deploy(line, deployTarget)
+#EVENT Deploy "<#1#> Deploy: #2#"
+Sub EVENT_Deploy(line, deployActor, deployTarget)
 
 	| ---------- Announce into /bc confirmation of the appropriate target.  Smrt because it's prettier
 	/if (${Me.Name.Equal[Smrt]}) /bc [+r+] Deploying for the encounter against ${deployTarget}
@@ -374,7 +335,7 @@ Sub EVENT_Deploy(line, deployTarget)
 	/if (${e3xUtilitiesDebug} || ${Debug}) /echo Deploy_10: deployRaidTarget is ${deployRaidTarget}
 
 	| ---------- Echo out engagement information as contained in the file "Engagement Info.ini"
-	/if (${Me.Name.Equal[Smaht]}) /call EVENT_macroHelp "NULL" "${deployTarget}"
+	/if (${Me.Name.Equal[${deployActor}]}) /call EVENT_macroHelp "NULL" "${deployTarget}"
 
 	| ---------- Define the location of deployment locations
 	/if (!${Defined[deployLocations_Ini]}) /declare deployLocations_Ini string outer ${Ini[${MacroData_Ini},File Paths,Deployment Locations]}

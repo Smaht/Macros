@@ -349,7 +349,7 @@ Sub MAG_Aliases
 SUB EVENT_summonRangedWeapons(line, rangedTargetID)
 
 	| ---------------- Set summoner.  Put your magician's name here
-	/declare magSummoner string local Quacked
+	/declare magSummoner string local ${classLeader}
 
 	| ---------------- If you aren't named magSummoner, exit function
 	/if (!${Me.CleanName.Equal[${magSummoner}]}) /return
@@ -544,8 +544,8 @@ Sub EVENT_coh_ListOfTargets(line, cohCaster, cohListOfTargets)
 #event CoH_OOR "<#*#> CotH"
 sub EVENT_CoH_OOR
 
-	| ---------- Exit if you aren't Quacked
-	/if (!${Me.Name.Equal[Quacked]}) /return
+	| ---------- Exit if you aren't the classLeader
+	/if (!${Me.Name.Equal[${classLeader}]}) /return
 
 	| ---------- Debug information
 	/declare e3xMagicianDebug bool local FALSE
