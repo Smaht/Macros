@@ -168,7 +168,7 @@ SUB EVENT_make_MacroSettingsIni
 	/delay 15
 	
 	| Import the array of Included Setups
-	/call IniToArray "${advSettings_Ini},Included Setups,Include#" macroSetups
+	/call IniToArray "${advSettings_Ini},${Me.Class} Included Setups,Include#" macroSetups
 	
 	| Call each setup
 	/declare i int local
@@ -246,7 +246,7 @@ SUB EVENT_updateAliases
 	/squelch /alias /debugon /varset Debug 1
 	/squelch /alias /debugoff /varset Debug 0
 
-	/call IniToArray "${advSettings_Ini},Included Setups,Include#" macroSetups
+	/call IniToArray "${advSettings_Ini},${Me.Class} Included Setups,Include#" macroSetups
 	
 	/declare i int local
 	
