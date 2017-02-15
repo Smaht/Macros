@@ -148,25 +148,6 @@ SUB EVENT_make_MacroSettingsIni
 	
 	/call WriteToIni "${advSettings_Ini},Debug,Debug Mode (On/Off)" Off
 	
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#1" background 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#2" basics 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#3" casting 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#4" begForBuffs 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#5" buffCheck 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#6" buy 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#7" pet 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#8" heal 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#9" healChain 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#10" assist 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#11" class 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#12" corpseSummon 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#13" loot 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#14" sell 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#15" smoothMoves 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#16" Wait4Rez 1
-	
-	/delay 15
-	
 	| Import the array of Included Setups
 	/call IniToArray "${advSettings_Ini},${Me.Class} Included Setups,Include#" macroSetups
 	
@@ -177,24 +158,6 @@ SUB EVENT_make_MacroSettingsIni
 		/if (${macroSetups[${i}].Equal[class]}) /varset macroSetups[${i}] ${Me.Class.ShortName}
 		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_MacroSettings
 	/next i
-	
-	| Call class specific setups
-	/call BRD_MacroSettings
-	/call BST_MacroSettings
-	/call BER_MacroSettings
-	/call CLR_MacroSettings
-	/call DRU_MacroSettings
-	/call ENC_MacroSettings
-	/call MAG_MacroSettings
-	/call MNK_MacroSettings
-	/call NEC_MacroSettings
-	/call PAL_MacroSettings
-	/call RNG_MacroSettings
-	/call ROG_MacroSettings
-	/call SHD_MacroSettings
-	/call SHM_MacroSettings
-	/call WAR_MacroSettings
-	/call WIZ_MacroSettings
 
 /if (${Debug}) /echo <== make_MacroSettingsIni -|
 /RETURN
@@ -254,23 +217,6 @@ SUB EVENT_updateAliases
 		/if (${macroSetups[${i}].Equal[class]}) /varset macroSetups[${i}] ${Me.Class.ShortName}
 		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_Aliases
 	/next i
-	
-	/call BRD_Aliases
-	/call BST_Aliases
-	/call BER_Aliases
-	/call CLR_Aliases
-	/call DRU_Aliases
-	/call ENC_Aliases
-	/call MAG_Aliases
-	/call MNK_Aliases
-	/call NEC_Aliases
-	/call PAL_Aliases
-	/call RNG_Aliases
-	/call ROG_Aliases
-	/call SHD_Aliases
-	/call SHM_Aliases
-	/call WAR_Aliases
-	/call WIZ_Aliases
 
 	/call VetAAs_Aliases
 

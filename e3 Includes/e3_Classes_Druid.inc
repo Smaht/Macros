@@ -30,15 +30,30 @@ SUB DRU_MacroSettings
 /if (${Debug}) /echo |- DRU_MacroSettings ==>
 
 	| Adv Settings
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#1" "check_healChain" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#2" "check_Heals" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#3" "check_CombatBuffs" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#4" "check_Burns" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#5" "check_Debuffs" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#6" "check_DoTs" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#7" "check_Rain" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#8" "check_Nukes" 1
-	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#9" "check_Buffs" 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#1" background 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#2" basics 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#3" casting 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#4" begForBuffs 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#5" buffCheck 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#6" buy 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#7" heal 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#8" assist 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#9" class 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#10" corpseSummon 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#11" loot 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#12" sell 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#13" smoothMoves 1
+	/call WriteToIni "${advSettings_Ini},Included Setups,Include#14" Wait4Rez 1
+	/delay 15
+
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#1" "check_Heals" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#2" "check_CombatBuffs" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#3" "check_Burns" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#4" "check_Debuffs" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#5" "check_DoTs" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#6" "check_Rain" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#7" "check_Nukes" 1
+	/call WriteToIni "${advSettings_Ini},DRU Functions,DRU Function#8" "check_Buffs" 1
 
 /if (${Debug}) /echo <== DRU_MacroSettings -|
 /RETURN
