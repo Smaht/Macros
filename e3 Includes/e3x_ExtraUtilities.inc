@@ -646,3 +646,45 @@ SUB EVENT_removeItemFromInventory(line, itemToDelete)
 	/if (${Window[InventoryWindow].Open}) /keypress i
 
 /return
+
+| --------------------------------------------------------------------------------------------------------|
+| -- Sets up aliases for e3x																			 -|
+| --------------------------------------------------------------------------------------------------------|
+
+SUB e3x_ExtraUtilities_Aliases
+	/if (${Debug}) /echo |- e3x_ExtraUtilities_Aliases ==>
+
+		/squelch /alias /BSG /echo Build Sewers Group
+		/squelch /alias /BuffAS /bc BuffAS:
+		/squelch /alias /cfb /bc [+y+] Check for buff:
+		/squelch /alias /cfd /bc [+y+] Check for debuff:
+		/squelch /alias /CIM /bc Check for Interesting Mobs in ${Zone}
+		/squelch /alias /CTB /bc Check for Typical Buffs
+		/squelch /alias /deploy /bc Deploy:
+		/squelch /alias /dis /bcaa //disband
+		/squelch /alias /EE /bc End Engagement!
+		/squelch /alias /Engage /bc Engage Target!
+		/squelch /alias /lootOff /echo Loot Off
+		/squelch /alias /lootOn /echo Loot On
+		/squelch /alias /PortTo /bc Port to
+		/squelch /alias /PP /bc Play Puretones:
+		/squelch /alias /PPStat /noparse /bct bards //if (${Me.CombatAbilityReady[Puretone Discipline]}) /bc [+y+] Puretones ready!
+		/squelch /alias /Sew /bc Invite me to Sewers Expedition
+		/squelch /alias /Atar /bcaa //target id ${Target.ID}
+		/squelch /alias /gis /bcaa //say group is ready
+		/squelch /alias /iGis /say group is ready
+		/squelch /alias /iQVIC /say I wish to travel
+		/squelch /alias /QVIC /bcaa //say I wish to travel
+		/squelch /alias /itt /say fire water undead air earth graveyard
+		/squelch /alias /tt /bcaa //say fire water undead air earth graveyard
+		/squelch /alias /ChOff /bc CH Mode Disabled
+		/squelch /alias /ChOn /bc CH Mode Enabled:
+		/squelch /alias /CureOff /bc Cure Disable
+		/squelch /alias /CureOn /bc Cure Enable:
+		/squelch /alias /Ikkinz1 /say Sanctuary of Righteousness
+		/squelch /alias /Ikkinz2 /say Sanctuary of the Glorified
+		/squelch /alias /Ikkinz3 /say Sanctuary of the Transcendent
+		/squelch /alias /iYes /notify ConfirmationDialogBox Yes_Button leftmouseup
+
+	/if (${Debug}) /echo <== e3x_ExtraUtilities_Aliases -|
+/return

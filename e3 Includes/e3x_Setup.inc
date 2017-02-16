@@ -227,6 +227,7 @@ SUB EVENT_updateAliases
 		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_Aliases
 	/next i
 
+	/call e3x_ExtraUtilities_Aliases
 	/call VetAAs_Aliases
 
 /if (${Debug}) /echo <== EVENT_updateAliases -|
