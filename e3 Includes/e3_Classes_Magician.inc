@@ -349,7 +349,7 @@ Sub MAG_Aliases
 
 	/squelch /alias /dpw /bc Distribute Pet Weapons
 	/squelch /alias /PetWeapons /bc Pet Weapons
-	/squelch /alias /RW /bc Ranged Weapons: ${Target.ID}
+	/noparse /squelch /alias /RW /bc Ranged Weapons: ${Target.ID}
 
 /if (${Debug} || ${Debug_MAG}) /echo <== MAG_Aliases -|
 /return
