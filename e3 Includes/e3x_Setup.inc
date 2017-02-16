@@ -148,6 +148,8 @@ SUB EVENT_make_MacroSettingsIni
 	
 	/call WriteToIni "${advSettings_Ini},Debug,Debug Mode (On/Off)" Off
 	
+	/call ${Me.Class.ShortName}_MacroSettings
+
 	| Import the array of Included Setups
 	/call IniToArray "${advSettings_Ini},${Me.Class} Included Setups,Include#" macroSetups
 	
@@ -155,7 +157,7 @@ SUB EVENT_make_MacroSettingsIni
 	/declare i int local
 	
 	/for i 1 to ${macroSetups.Size}
-		/if (${macroSetups[${i}].Equal[class]}) /varset macroSetups[${i}] ${Me.Class.ShortName}
+		/if (${macroSetups[${i}].Equal[class]}) /next i
 		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_MacroSettings
 	/next i
 

@@ -28,19 +28,19 @@ SUB BER_MacroSettings
 /if (${Debug}) /echo |- BER_MacroSettings ==>
 
 	| Adv Settings
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#1" background 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#2" basics 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#3" casting 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#4" begForBuffs 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#5" buffCheck 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#6" buy 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#7" assist 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#8" class 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#9" corpseSummon 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#10" loot 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#11" sell 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#12" smoothMoves 1
-	/call WriteToIni "${advSettings_Ini},Included Setups,Include#13" Wait4Rez 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#1" background 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#2" basics 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#3" casting 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#4" begForBuffs 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#5" buffCheck 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#6" buy 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#7" assist 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#8" class 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#9" corpseSummon 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#10" loot 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#11" sell 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#12" smoothMoves 1
+	/call WriteToIni "${advSettings_Ini},BER Included Setups,Include#13" Wait4Rez 1
 	/delay 15
 
 	/call WriteToIni "${advSettings_Ini},BER Functions,BER Function#1" "check_Burns" 1
