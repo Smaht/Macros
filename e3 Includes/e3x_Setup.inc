@@ -60,11 +60,11 @@ SUB e3_Setup(modeSelect)
 	| Macro Setting Inis
 	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]} || !${Bool[${Ini[${genSettings_Ini}]}]} || !${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Bot_Ini version].Equal[${macroVersion}]}) /call EVENT_make_MacroSettingsIni
 	
+	| Macro Aliases
+	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]} || !${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Bot_Ini version].Equal[${macroVersion}]}) /call EVENT_updateAliases
+
 	| Generate Character_Ini.
 	/if (!${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Bot_Ini version].Equal[${macroVersion}]} || !${Bool[${Ini[${Character_Ini}]}]}) /call EVENT_make_CharacterSettingsIni
-	
-	| Macro Aliases
-	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]}) /call EVENT_updateAliases
 
 	| Update macro version in e3 Data.ini
 	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]}) /call WriteToIni "${MacroData_Ini},e3 Build,Version" "${macroVersion}" 1
