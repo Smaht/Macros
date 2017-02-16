@@ -685,6 +685,7 @@ SUB e3x_ExtraUtilities_Aliases
 		/noparse /squelch /alias /Ikkinz2 /say Sanctuary of the Glorified
 		/noparse /squelch /alias /Ikkinz3 /say Sanctuary of the Transcendent
 		/noparse /squelch /alias /iYes /notify ConfirmationDialogBox Yes_Button leftmouseup
+		/noparse /squelch /alias /Yes /bca //notify ConfirmationDialogBox Yes_Button leftmouseup
 
 	/if (${Debug}) /echo <== e3x_ExtraUtilities_Aliases -|
 /return
