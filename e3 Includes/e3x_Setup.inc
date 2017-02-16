@@ -130,6 +130,13 @@ SUB make_macroDataIni
 	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "General Settings" "e3 Macro Inis\General Settings.ini"
 	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "Advanced Settings" "e3 Macro Inis\Advanced Settings.ini"
 
+	| ---------- e3x file locations
+	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "Deployment Locations" "e3 Macro Inis\Locations - Deployment.ini"
+	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "Engagement Locations" "e3 Macro Inis\Locations - Engagement.ini"
+	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "Typical Buffs" "e3 Macro Inis\Typical Buffs.ini"
+	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "Interesting Mobs" "e3 Macro Inis\Interesting Mobs.ini"
+	/noparse /ini "e3 Macro Inis\e3 Data.ini" "File Paths" "CH Events" "e3 Macro Inis\e3x_CH.ini"
+
 /if (${Debug}) /echo <== make_macroDataIni -|
 /RETURN
 

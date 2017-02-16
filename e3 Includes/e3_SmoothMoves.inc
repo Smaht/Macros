@@ -810,7 +810,7 @@ SUB SmoothMoves_Setup
 /if (${Debug} || ${Debug_SmoothMoves}) /echo |- SmoothMoves_Setup ==>
 
 	| Add Casting File Paths
-	/if (!${Ini[${MacroData_Ini},File Paths,Saved Routes].Length}) /call WriteToIni "${MacroData_Ini},File Paths,Saved Routes" "Macro Inis\Saved Routes.ini" 1
+	/if (!${Ini[${MacroData_Ini},File Paths,Saved Routes].Length}) /call WriteToIni "${MacroData_Ini},File Paths,Saved Routes" "e3 Macro Inis\Saved Routes.ini" 1
 	
 	| Import Saved Routes.ini
 	/if (!${Ini[${MacroData_Ini},File Paths,Saved Routes].Length}) {
