@@ -58,7 +58,7 @@ SUB e3_Setup(modeSelect)
 	/if (${Bool[${Ini[${genSettings_Ini}]}]} && !${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]}) /echo New version of e3 detected. Hold on to your nuggets!
 	
 	| Macro Setting Inis
-	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]} || !${Bool[${Ini[${genSettings_Ini}]}]}) /call EVENT_make_MacroSettingsIni
+	/if (!${Ini[${MacroData_Ini},e3 Build,Version].Equal[${macroVersion}]} || !${Bool[${Ini[${genSettings_Ini}]}]} || !${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Bot_Ini version].Equal[${macroVersion}]}) /call EVENT_make_MacroSettingsIni
 	
 	| Generate Character_Ini.
 	/if (!${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Bot_Ini version].Equal[${macroVersion}]} || !${Bool[${Ini[${Character_Ini}]}]}) /call EVENT_make_CharacterSettingsIni
