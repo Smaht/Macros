@@ -654,37 +654,37 @@ SUB EVENT_removeItemFromInventory(line, itemToDelete)
 SUB e3x_ExtraUtilities_Aliases
 	/if (${Debug}) /echo |- e3x_ExtraUtilities_Aliases ==>
 
-		/squelch /alias /BSG /echo Build Sewers Group
-		/squelch /alias /BuffAS /bc BuffAS:
-		/squelch /alias /cfb /bc [+y+] Check for buff:
-		/squelch /alias /cfd /bc [+y+] Check for debuff:
-		/squelch /alias /CIM /bc Check for Interesting Mobs in ${Zone}
-		/squelch /alias /CTB /bc Check for Typical Buffs
-		/squelch /alias /deploy /bc Deploy:
-		/squelch /alias /dis /bcaa //disband
-		/squelch /alias /EE /bc End Engagement!
-		/squelch /alias /Engage /bc Engage Target!
-		/squelch /alias /lootOff /echo Loot Off
-		/squelch /alias /lootOn /echo Loot On
-		/squelch /alias /PortTo /bc Port to
-		/squelch /alias /PP /bc Play Puretones:
-		/squelch /alias /PPStat /noparse /bct bards //if (${Me.CombatAbilityReady[Puretone Discipline]}) /bc [+y+] Puretones ready!
-		/squelch /alias /Sew /bc Invite me to Sewers Expedition
-		/squelch /alias /Atar /bcaa //target id ${Target.ID}
-		/squelch /alias /gis /bcaa //say group is ready
-		/squelch /alias /iGis /say group is ready
-		/squelch /alias /iQVIC /say I wish to travel
-		/squelch /alias /QVIC /bcaa //say I wish to travel
-		/squelch /alias /itt /say fire water undead air earth graveyard
-		/squelch /alias /tt /bcaa //say fire water undead air earth graveyard
-		/squelch /alias /ChOff /bc CH Mode Disabled
-		/squelch /alias /ChOn /bc CH Mode Enabled:
-		/squelch /alias /CureOff /bc Cure Disable
-		/squelch /alias /CureOn /bc Cure Enable:
-		/squelch /alias /Ikkinz1 /say Sanctuary of Righteousness
-		/squelch /alias /Ikkinz2 /say Sanctuary of the Glorified
-		/squelch /alias /Ikkinz3 /say Sanctuary of the Transcendent
-		/squelch /alias /iYes /notify ConfirmationDialogBox Yes_Button leftmouseup
+		/noparse /squelch /alias /BSG /echo Build Sewers Group
+		/noparse /squelch /alias /BuffAS /bc BuffAS:
+		/noparse /squelch /alias /cfb /bc [+y+] Check for buff:
+		/noparse /squelch /alias /cfd /bc [+y+] Check for debuff:
+		/noparse /squelch /alias /CIM /bc Check for Interesting Mobs in ${Zone}
+		/noparse /squelch /alias /CTB /bc Check for Typical Buffs
+		/noparse /squelch /alias /deploy /bc Deploy:
+		/noparse /squelch /alias /dis /bcaa //disband
+		/noparse /squelch /alias /EE /bc End Engagement!
+		/noparse /squelch /alias /Engage /bc Engage Target!
+		/noparse /squelch /alias /lootOff /echo Loot Off
+		/noparse /squelch /alias /lootOn /echo Loot On
+		/noparse /squelch /alias /PortTo /bc Port to
+		/noparse /squelch /alias /PP /bc Play Puretones:
+		/noparse /squelch /alias /PPStat /noparse /bct bards //if (${Me.CombatAbilityReady[Puretone Discipline]}) /bc [+y+] Puretones ready!
+		/noparse /squelch /alias /Sew /bc Invite me to Sewers Expedition
+		/noparse /squelch /alias /Atar /bcaa //target id ${Target.ID}
+		/noparse /squelch /alias /gis /bcaa //say group is ready
+		/noparse /squelch /alias /iGis /say group is ready
+		/noparse /squelch /alias /iQVIC /say I wish to travel
+		/noparse /squelch /alias /QVIC /bcaa //say I wish to travel
+		/noparse /squelch /alias /itt /say fire water undead air earth graveyard
+		/noparse /squelch /alias /tt /bcaa //say fire water undead air earth graveyard
+		/noparse /squelch /alias /ChOff /bc CH Mode Disabled
+		/noparse /squelch /alias /ChOn /bc CH Mode Enabled:
+		/noparse /squelch /alias /CureOff /bc Cure Disable
+		/noparse /squelch /alias /CureOn /bc Cure Enable:
+		/noparse /squelch /alias /Ikkinz1 /say Sanctuary of Righteousness
+		/noparse /squelch /alias /Ikkinz2 /say Sanctuary of the Glorified
+		/noparse /squelch /alias /Ikkinz3 /say Sanctuary of the Transcendent
+		/noparse /squelch /alias /iYes /notify ConfirmationDialogBox Yes_Button leftmouseup
 
 	/if (${Debug}) /echo <== e3x_ExtraUtilities_Aliases -|
 /return
