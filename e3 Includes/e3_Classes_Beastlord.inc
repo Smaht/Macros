@@ -68,21 +68,21 @@ SUB BST_MacroSettings
 /if (${Debug}) /echo |- BST_MacroSettings ==>
 
 	| Adv Settings
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#1" background 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#2" basics 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#3" casting 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#4" begForBuffs 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#5" buffCheck 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#6" buy 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#7" pet 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#8" heal 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#9" assist 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#10" class 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#11" corpseSummon 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#12" loot 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#13" sell 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#14" smoothMoves 1
-	/call WriteToIni "${advSettings_Ini},BST Included Setups,Include#15" Wait4Rez 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#1" background 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#2" basics 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#3" casting 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#4" begForBuffs 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#5" buffCheck 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#6" buy 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#7" pet 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#8" heal 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#9" assist 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#10" class 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#11" corpseSummon 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#12" loot 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#13" sell 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#14" smoothMoves 1
+	/call WriteToIni "${advSettings_Ini},Beastlord Included Setups,Include#15" Wait4Rez 1
 	/delay 15
 
 	/call WriteToIni "${advSettings_Ini},BST Functions,BST Function#1" "check_Debuffs" 1

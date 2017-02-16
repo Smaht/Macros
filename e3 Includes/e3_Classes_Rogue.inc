@@ -170,19 +170,19 @@ SUB ROG_MacroSettings
 	/call WriteToIni "${MacroData_Ini},Class Specific Info,Rogue Sneak Attack Disciplines" "Sneak Attack,Thief's Vengeance,Assassin's Strike,Kyv Strike,Ancient: Chaos Strike,Daggerfall,Razorarc,Swiftblade,Swiftblade Rk. II,Swiftblade Rk. III,Daggerlunge,Daggerlunge Rk. II,Daggerlunge Rk. III,Daggerswipe,Daggerswipe Rk. II,Daggerswipe Rk. III,Daggerstrike,Daggerstrike Rk. II,Daggerstrike Rk. III,Daggerthrust,Daggerthrust Rk. II,Daggerthrust Rk. III" 0
 
 	| Adv Settings
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#1" background 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#2" basics 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#3" casting 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#4" begForBuffs 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#5" buffCheck 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#6" buy 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#7" assist 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#8" class 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#9" corpseSummon 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#10" loot 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#11" sell 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#12" smoothMoves 1
-	/call WriteToIni "${advSettings_Ini},ROG Included Setups,Include#13" Wait4Rez 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#1" background 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#2" basics 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#3" casting 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#4" begForBuffs 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#5" buffCheck 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#6" buy 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#7" assist 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#8" class 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#9" corpseSummon 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#10" loot 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#11" sell 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#12" smoothMoves 1
+	/call WriteToIni "${advSettings_Ini},Rogue Included Setups,Include#13" Wait4Rez 1
 	/delay 15
 
 	/call WriteToIni "${advSettings_Ini},ROG Functions,ROG Function#1" "check_Burns" 1
