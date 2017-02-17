@@ -180,7 +180,6 @@ SUB EVENT_lootOn
 	/declare initialLootState bool local ${Auto_Loot}
 
 	/varset Auto_Loot TRUE
-	/echo test loot
 
 	| ---------------- Report changes in /bc
 	/bc Loot State was ${initialLootState} and is now ${Auto_Loot}.  FreeInventory = ${Me.FreeInventory}
