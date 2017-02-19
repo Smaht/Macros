@@ -77,12 +77,12 @@ SUB e3_Cast(int targetID, castParams)
 					/if (${castParams.Find[/reagent|]}) {
 						/call argueString reagent "${castParams}"
 						/if (${FindItemCount[=${Macro.Return}]} < 3) {
-							/if (!${FindItemCount[=${Macro.Return}]}) {
+							/if (!${FindItemCount[=${Macro.Return}]} && ${Macro.RunTime} > 600 ) {
 								/if (${Debug} || ${Debug_Casting}) /echo Cannot cast [${pendingCast}], I do not have any [${requiredReagent}].		
 								/varset castReturn REAGENT
 								/goto :skipCast
 							}
-							/bc [+r+] Warning! Reagent Check: Only ${FindItemCount[=${Macro.Return}]} ${Macro.Return}s remaining!
+							/bc [+r+] Warning! Reagent Check: Only ${FindItemCount[=${Macro.Return}]} ${Macro.Return}s remaining! (${castParams})
 						}
 					}
 					
