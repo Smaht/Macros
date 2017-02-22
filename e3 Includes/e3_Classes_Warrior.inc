@@ -139,7 +139,7 @@ SUB EVENT_DebuffTarget(line, SlowedTarget)
 	| ---------------- Shaman malos
 	/if (${line.Find[uncomfortable]}) {	
 		/bc [+r+] Malos/Malosinia on ${SlowedTarget} (SHM)
-		/if (${NetBots[${classLeader}].Raid}) /rs Slowed ${SlowedTarget} (SHM)
+		/if (${NetBots[${classLeader}].Raid}) /rs Malos/Malosinia on ${SlowedTarget} (SHM)
 		/return
 	}
 
