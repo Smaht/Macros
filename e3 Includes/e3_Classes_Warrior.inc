@@ -123,6 +123,7 @@ Sub WAR_Aliases
 #EVENT DebuffTarget "#1# loses their fighting edge."
 #EVENT DebuffTarget "#1# slows down."
 #EVENT DebuffTarget "#1# has been crippled."
+#EVENT DebuffTarget "#1# looks very uncomfortable."
 SUB EVENT_DebuffTarget(line, SlowedTarget)
 
 	| ---------------- If I am not the single main toon, exit
@@ -131,28 +132,35 @@ SUB EVENT_DebuffTarget(line, SlowedTarget)
 	| ---------------- Shaman slow
 	/if (${line.Find[yawn]}) {	
 		/bc [+r+] Slowed ${SlowedTarget} (SHM)
-		/if (${NetBots[Smaht].Raid}) /rs Slowed ${SlowedTarget} (SHM)
+		/if (${NetBots[${classLeader}].Raid}) /rs Slowed ${SlowedTarget} (SHM)
+		/return
+	}
+
+	| ---------------- Shaman malos
+	/if (${line.Find[uncomfortable]}) {	
+		/bc [+r+] Malos/Malosinia on ${SlowedTarget} (SHM)
+		/if (${NetBots[${classLeader}].Raid}) /rs Slowed ${SlowedTarget} (SHM)
 		/return
 	}
 
 	| ---------------- Beastlord slow
 	/if (${line.Find[fighting]}) {
 		/bc [+r+] Slowed ${SlowedTarget} (BST)
-		/if (${NetBots[Smaht].Raid}) /rs Slowed ${SlowedTarget} (BST)
+		/if (${NetBots[${classLeader}].Raid}) /rs Slowed ${SlowedTarget} (BST)
 		/return
 	}
 
 	| ---------------- Enchanter slow
 	/if (${line.Find[slows]}) {
 		/bc [+r+] Slowed ${SlowedTarget} (ENC)
-		/if (${NetBots[Smaht].Raid}) /rs Slowed ${SlowedTarget} (ENC)
+		/if (${NetBots[${classLeader}].Raid}) /rs Slowed ${SlowedTarget} (ENC)
 		/return
 	}
 
 	| ---------------- Cripple	
 	/if (${line.Find[crippled]}) {
 		/bc [+r+] Crippled ${SlowedTarget}
-		/if (${NetBots[Smaht].Raid}) /rs Crippled ${SlowedTarget}
+		/if (${NetBots[${classLeader}].Raid}) /rs Crippled ${SlowedTarget}
 		/return
 	}
 
