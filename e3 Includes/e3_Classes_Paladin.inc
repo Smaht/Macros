@@ -84,11 +84,3 @@ SUB PAL_CharacterSettings
 	
 /if (${Debug}) /echo <== PAL_CharacterSettings -|
 /RETURN
-
-
-
-Sub PAL_Aliases
-/if (${Debug}) /echo |- PAL_Aliases ==>
-
-/if (${Debug}) /echo <== PAL_Aliases -|
-/return

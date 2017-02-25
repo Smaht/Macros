@@ -57,11 +57,3 @@ SUB MNK_CharacterSettings
 
 /if (${Debug}) /echo <== MNK_CharacterSettings -|
 /RETURN
-
-
-
-Sub MNK_Aliases
-/if (${Debug}) /echo |- MNK_Aliases ==>
-
-/if (${Debug}) /echo <== MNK_Aliases -|
-/return

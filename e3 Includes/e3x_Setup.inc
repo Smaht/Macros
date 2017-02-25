@@ -223,11 +223,15 @@ SUB EVENT_updateAliases
 	/declare i int local
 	
 	/for i 1 to ${macroSetups.Size}
-		/if (${macroSetups[${i}].Equal[class]}) /varset macroSetups[${i}] ${Me.Class.ShortName}
+		/if (${macroSetups[${i}].Equal[class]}) {
+			/varset macroSetups[${i}] ${Me.Class.ShortName}
+			/next i
+		}
 		/if (${Bool[${macroSetups[${i}]}]}) /call ${macroSetups[${i}]}_Aliases
 	/next i
 
 	/call e3x_ExtraUtilities_Aliases
+	/call e3x_Class_Aliases
 	/call VetAAs_Aliases
 
 /if (${Debug}) /echo <== EVENT_updateAliases -|

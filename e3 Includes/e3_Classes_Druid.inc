@@ -69,14 +69,6 @@ SUB DRU_CharacterSettings
 /if (${Debug}) /echo <== DRU_CharacterSettings -|
 /RETURN
 
-
-
-Sub DRU_Aliases
-/if (${Debug}) /echo |- DRU_Aliases ==>
-
-/if (${Debug}) /echo <== DRU_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- Causes Druids/Wizards to port to the destination requested                        -|
 | --------------------------------------------------------------------------------------|

@@ -105,14 +105,6 @@ SUB WIZ_CharacterSettings
 /if (${Debug}) /echo <== WIZ_CharacterSettings -|
 /RETURN
 
-
-
-Sub WIZ_Aliases
-/if (${Debug}) /echo |- WIZ_Aliases ==>
-
-/if (${Debug}) /echo <== WIZ_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- Causes Druids/Wizards to port to the destination requested                        -|
 | --------------------------------------------------------------------------------------|

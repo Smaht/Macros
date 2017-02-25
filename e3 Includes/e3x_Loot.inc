@@ -20,7 +20,7 @@ SUB Event_YourKill(line)
 /if (${Debug} || ${Debug_Loot}) /echo |- Event_YourKill ==>
 
 	| ---------------- Smaht: Announce who got XP added for extended e3 (e3x)
-	/if ((!${Group} || ${Me.CleanName.Equal[${Group.Leader}]}) &&  ${line.Find[experience]} && !${Me.CleanName.Equal[Smaht]} && !(${Raid.Members}>0)) /bc [+y+] My Kill!
+	/if ((!${Group} || ${Me.CleanName.Equal[${Group.Leader}]}) &&  ${line.Find[experience]} && !${Me.CleanName.Equal[${classLeader}]} && !(${Raid.Members}>0)) /bc [+y+] My Kill!
 
 	| ---------------- Smaht: If in Vxed and you are the group leader, call counting function
 	/if (${Select[${Group.Leader},${Me}]} && ${Zone.ShortName.Equal[vxed]} && ${line.Find[experience]}) /call vxed_Counter

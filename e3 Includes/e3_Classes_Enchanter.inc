@@ -181,18 +181,6 @@ SUB ENC_CharacterSettings
 /if (${Debug}) /echo <== ENC_CharacterSettings -|
 /RETURN
 
-
-
-Sub ENC_Aliases
-/if (${Debug}) /echo |- ENC_Aliases ==>
-
-	/squelch /alias /runeon /bc Rune on
-	/squelch /alias /runeoff /bc Rune off
-
-/if (${Debug}) /echo <== ENC_Aliases -|
-/return
-
-
 |**
 
 

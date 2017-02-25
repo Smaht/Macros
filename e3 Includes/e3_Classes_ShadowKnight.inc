@@ -29,24 +29,6 @@ Sub SHD_Background_Events
 SUB SHD_MacroSettings
 /if (${Debug}) /echo |- SHD_MacroSettings ==>
 
-/if (${Debug}) /echo <== SHD_MacroSettings -|
-/RETURN
-
-
-
-SUB SHD_CharacterSettings
-/if (${Debug}) /echo |- SHD_CharacterSettings ==>
-
-	/call WriteToIni "${Character_Ini},${Me.Class},LifeTap#1"
-
-/if (${Debug}) /echo <== SHD_CharacterSettings -|
-/RETURN
-
-
-
-Sub SHD_Aliases
-/if (${Debug}) /echo |- SHD_Aliases ==>
-
 	| Adv Settings
 	/call WriteToIni "${advSettings_Ini},Shadowknight Included Setups,Include#1" background 1
 	/call WriteToIni "${advSettings_Ini},Shadowknight Included Setups,Include#2" basics 1
@@ -73,5 +55,15 @@ Sub SHD_Aliases
 	/call WriteToIni "${advSettings_Ini},SHD Functions,SHD Function#7" "check_Buffs" 1
 	/call WriteToIni "${advSettings_Ini},SHD Functions,SHD Function#8" "check_Pets" 1
 
-/if (${Debug}) /echo <== SHD_Aliases -|
-/return
+/if (${Debug}) /echo <== SHD_MacroSettings -|
+/RETURN
+
+
+
+SUB SHD_CharacterSettings
+/if (${Debug}) /echo |- SHD_CharacterSettings ==>
+
+	/call WriteToIni "${Character_Ini},${Me.Class},LifeTap#1"
+
+/if (${Debug}) /echo <== SHD_CharacterSettings -|
+/RETURN

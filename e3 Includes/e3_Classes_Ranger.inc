@@ -61,11 +61,3 @@ SUB RNG_CharacterSettings
 
 /if (${Debug}) /echo <== RNG_CharacterSettings -|
 /RETURN
-
-
-
-Sub RNG_Aliases
-/if (${Debug}) /echo |- RNG_Aliases ==>
-
-/if (${Debug}) /echo <== RNG_Aliases -|
-/return

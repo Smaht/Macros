@@ -215,16 +215,6 @@ SUB BRD_CharacterSettings
 /RETURN
 
 
-
-Sub BRD_Aliases
-/if (${Debug}) /echo |- BRD_Aliases ==>
-
-	/squelch /alias /SaveMelody /echo Save Melody
-	/squelch /alias /PlayMelody /bc  Melody
-
-/if (${Debug}) /echo <== BRD_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- Trigger Pure Tones on the appropriate bard            						       -|
 | --------------------------------------------------------------------------------------|

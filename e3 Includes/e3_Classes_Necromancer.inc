@@ -287,18 +287,6 @@ SUB NEC_CharacterSettings
 /if (${Debug}) /echo <== NEC_CharacterSettings -|
 /RETURN
 
-
-
-Sub NEC_Aliases
-/if (${Debug}) /echo |- NEC_Aliases ==>
-
-	/noparse /squelch /alias /manadump /bc Mana dump
-
-/if (${Debug}) /echo <== NEC_Aliases -|
-/return
-
-
-
 |**
 	/if (${Ini[${Character_Ini},Necromancer,Allow Twitch requests (On/Off)].Length}) /call INItoVar "${Character_Ini},Necromancer,Allow Twitch requests (On/Off)" allowTwitch bool outer
 	/if (${Ini[${Character_Ini},Necromancer,Min Mana to Allow Twitch Requests (Pct)].Length}) /call INItoVar "${Character_Ini},Necromancer,Min Mana to Allow Twitch Requests (Pct)" minTwitchMana int outer

@@ -106,14 +106,6 @@ SUB BST_CharacterSettings
 /if (${Debug}) /echo <== BST_CharacterSettings -|
 /RETURN
 
-
-
-Sub BST_Aliases
-/if (${Debug}) /echo |- BST_Aliases ==>
-
-/if (${Debug}) /echo <== BST_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- Casts shrink on anyone over 2.40 in size						                   -|
 | --------------------------------------------------------------------------------------|

@@ -409,7 +409,82 @@ SUB EVENT_barkReturn(line, returnBark)
 /if (${Debug} || ${Debug_Basics}) /echo <== EVENT_barkReturn -|
 /RETURN
 
+|----------------------------------------------------------------------------|
+|- Moves to a given location, and clicks the nearest object.				        -|
+|- @param ChatSender: The command sender.									                  -|
+|----------------------------------------------------------------------------|
+#EVENT newclickIt "<#1#> Jack It"
+|#EVENT newclickIt "<#1#> Click It#*#"
+|#EVENT newclickIt "#1# tells the group, 'Click It'"
+|#EVENT newclickIt "#1# you tell your party, 'Click It'"
+SUB EVENT_newclickIt(line, ChatSender)
+	| -Verify the event
+  /call verifyEvent "${ChatSender}" "${line}"
+  /if (${Defined[ChatSender]}) /if (${Defined[ChatSender]}) /varset ChatSender ${Macro.Return.Arg[1,_]}
+|    |-----------Valid User----------|    |--------Included Bot-----------|    |-----------In Zone-------------|    |------------In Range------------|
+  /if (${Bool[${Macro.Return.Arg[2,_]}]} && ${Bool[${Macro.Return.Arg[3,_]}]} && ${Bool[${Macro.Return.Arg[4,_]}]} && ${Bool[${Macro.Return.Arg[5,_]}]}) {
+		/declare debug_clickit bool local TRUE
+		/if (${debug_clickit}) /echo ${ChatSender} ${Zone.ShortName} ${Ini[e3 Macro Inis\doors.ini,${Zone.ShortName},${Zone.ShortName}#1].Length}
+		/if (${debug_clickit} && ${ChatSender.Equal[${Me.Name}]}) /delay 5s
+    /if (${Me.Casting.ID} && ${Me.Class.ShortName.NotEqual[BRD]}) /call interrupt
 
+		|load array of doors from doors.ini:  doorid, x, y, z, name
+		/if (${Ini[e3 Macro Inis\doors.ini,${Zone.ShortName},${Zone.ShortName}#1].Length}) /call InitoArray "e3 Macro Inis\doors.ini,${Zone.ShortName},${Zone.ShortName}#" doorList
+		/if (${debug_clickit}) /echo Doors in zone ${doorList.Size}
+		/declare i int local
+		/declare closestDoorID int local 0
+		/declare closestDoorDist float local 0
+		|find the closest door to me
+		/for i 1 to ${doorList.Size}
+			/if (${debug_clickit}) /echo ${i} ${doorList[${i}]}
+			/squelch /doortarget id ${doorList[${i}].Arg[1,,]}
+			|/delay 1
+			/if ((${closestDoorDist}==0 || ${DoorTarget.Distance} < ${closestDoorDist}) && ${DoorTarget.Distance3D} < 100) {
+				/varset closestDoorDist ${DoorTarget.Distance}
+				/varset closestDoorID ${doorList[${i}].Arg[1,,]}
+			}
+		/next i
+		| if i have a door within 100 distance then move to it and try to click
+		/if (${debug_clickit}) /echo closest ${closestDoorID} ${closestDoorDist}
+		/if (!${Bool[${closestDoorID}]}) {
+			/echo say Aborting ClickIt: I could not find an acceptable door < 100 3D units
+			/return
+		}
+		/squelch /doortarget id ${closestDoorID}
+		/if (${DoorTarget.Distance} > 20) {
+			/declare moveTimer timer local 5s
+			/netfollow off
+			/stick off
+			/squelch /face door fast
+			/moveto loc ${DoorTarget.Y} ${DoorTarget.X}
+			:continueMoveTo
+			/delay 1
+			/if (${DoorTarget.Distance} > 20 && ${Bool[${moveTimer}]}) /goto :continueMoveTo
+		}
+		/if (${DoorTarget.Distance} > 20) {
+			/echo say Aborting ClickIt: I could not moveto < 20 units of ${DoorTarget.Name} within 10s
+			/moveto off
+			/return
+		} else {
+			/declare MyZone int local ${Zone.ID}
+			/declare clickTimer timer local 5s
+			|add starting loc vs final loc for intrazone click
+|			/declare clickDelay int local ${Math.Calc[${Math.Rand[${Me.ID}]}%${clickitRandomDelay}|1]}
+			/declare clickDelay int local ${Math.Rand[${Me.ID}]}
+			/declare doorStartingDist ${DoorTarget.Distance3D}
+			:retryClickDoor
+			/delay ${clickDelay}
+|			/squelch /click left door
+			/squelch /click left center
+			/if (${clickTimer} && (${MyZone}==${Zone.ID} || ${Math.Abs[${doorStartingDist}-${DoorTarget.Distance3D}]} < 20)) /goto :retryClickDoor
+			/if (${MyZone}==${Zone.ID} && ${Math.Abs[${doorStartingDist}-${DoorTarget.Distance3D}]} < 20) {
+				/echo say I have failed to click Door ${Switch.ID} ${DoorTarget.Name}
+				/moveto off
+				/return
+			}
+		}
+	}
+/RETURN
 
 |----------------------------------------------------------------------------|
 |- Moves to a given location, and clicks the nearest object.				-|

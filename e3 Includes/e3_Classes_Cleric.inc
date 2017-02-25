@@ -334,14 +334,3 @@ SUB CLR_CharacterSettings
 
 /if (${Debug}) /echo <== CLR_CharacterSettings -|
 /RETURN
-
-
-
-Sub CLR_Aliases
-/if (${Debug}) /echo |- CLR_Aliases ==>
-
-	/noparse /squelch /alias /RezIt /bc Rez on ${Target.CleanName.Arg[1,']}
-	/squelch /alias /AERez /echo AE Rez
-
-/if (${Debug}) /echo <== CLR_Aliases -|
-/return

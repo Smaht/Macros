@@ -57,11 +57,3 @@ SUB BER_CharacterSettings
 
 /if (${Debug}) /echo <== BER_CharacterSettings -|
 /RETURN
-
-
-
-Sub BER_Aliases
-/if (${Debug}) /echo |- BER_Aliases ==>
-
-/if (${Debug}) /echo <== BER_Aliases -|
-/return

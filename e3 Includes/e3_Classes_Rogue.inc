@@ -203,14 +203,6 @@ SUB ROG_CharacterSettings
 /if (${Debug}) /echo <== ROG_CharacterSettings -|
 /RETURN
 
-
-
-Sub ROG_Aliases
-/if (${Debug}) /echo |- ROG_Aliases ==>
-
-/if (${Debug}) /echo <== ROG_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------------------------|
 | -- Get Sewers Expedition Thingy (Grimy Turepta)														 -|
 | --------------------------------------------------------------------------------------------------------|

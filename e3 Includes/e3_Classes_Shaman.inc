@@ -163,14 +163,6 @@ SUB SHM_CharacterSettings
 /if (${Debug}) /echo <== SHM_CharacterSettings -|
 /RETURN
 
-
-
-Sub SHM_Aliases
-/if (${Debug}) /echo |- SHM_Aliases ==>
-
-/if (${Debug}) /echo <== SHM_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- Casts shrink on anyone over 2.40 in size						                   -|
 | --------------------------------------------------------------------------------------|

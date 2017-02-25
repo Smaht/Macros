@@ -107,14 +107,6 @@ SUB WAR_CharacterSettings
 /if (${Debug}) /echo <== WAR_CharacterSettings -|
 /RETURN
 
-
-
-Sub WAR_Aliases
-/if (${Debug}) /echo |- WAR_Aliases ==>
-
-/if (${Debug}) /echo <== WAR_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------|
 | -- States if soemthing is slowed, and what                                           -|
 | --------------------------------------------------------------------------------------|

@@ -647,7 +647,7 @@ SUB EVENT_removeItemFromInventory(line, itemToDelete)
 /return
 
 | --------------------------------------------------------------------------------------------------------|
-| -- Sets up aliases for e3x																			 -|
+| -- Sets up aliases for specific to e3x																 -|
 | --------------------------------------------------------------------------------------------------------|
 
 SUB e3x_ExtraUtilities_Aliases
@@ -687,4 +687,26 @@ SUB e3x_ExtraUtilities_Aliases
 		/noparse /squelch /alias /Yes /bca //notify ConfirmationDialogBox Yes_Button leftmouseup
 
 	/if (${Debug}) /echo <== e3x_ExtraUtilities_Aliases -|
+/return
+
+
+| --------------------------------------------------------------------------------------------------------|
+| -- Sets up class aliases for e3x																		 -|
+| --------------------------------------------------------------------------------------------------------|
+
+SUB e3x_Class_Aliases
+	/if (${Debug}) /echo |- e3x_Class_Aliases ==>
+
+	/squelch /alias /SaveMelody /echo Save Melody
+	/squelch /alias /PlayMelody /bc  Melody
+	/noparse /squelch /alias /RezIt /bc Rez on ${Target.CleanName.Arg[1,']}
+	/squelch /alias /AERez /echo AE Rez
+	/squelch /alias /runeon /bc Rune on
+	/squelch /alias /runeoff /bc Rune off
+	/squelch /alias /dpw /bc Distribute Pet Weapons
+	/squelch /alias /PetWeapons /bc Pet Weapons
+	/noparse /squelch /alias /RW /bc Ranged Weapons: ${Target.ID}
+	/noparse /squelch /alias /manadump /bc Mana dump
+
+	/if (${Debug}) /echo <== e3x_Class_Aliases -|
 /return

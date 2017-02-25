@@ -342,18 +342,6 @@ SUB MAG_CharacterSettings
 /if (${Debug} || ${Debug_MAG}) /echo <== MAG_CharacterSettings -|
 /RETURN
 
-
-
-Sub MAG_Aliases
-/if (${Debug} || ${Debug_MAG}) /echo |- MAG_Aliases ==>
-
-	/squelch /alias /dpw /bc Distribute Pet Weapons
-	/squelch /alias /PetWeapons /bc Pet Weapons
-	/noparse /squelch /alias /RW /bc Ranged Weapons: ${Target.ID}
-
-/if (${Debug} || ${Debug_MAG}) /echo <== MAG_Aliases -|
-/return
-
 | --------------------------------------------------------------------------------------------------------|
 | -- Begin class specific routines developped by Smaht and integrated into e3x							 -|
 | --------------------------------------------------------------------------------------------------------|
