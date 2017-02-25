@@ -58,7 +58,7 @@ Sub WIZ_Setup
 
 Sub WIZ_Background_Events
 
-	/if (${Me.Pet.ID} && ${Me.Pet.CleanName.Find[${Me.CleanName}`s Familiar]} && ${MacroQuest.Server.Equal[PEQTGC]}) /pet get lost
+	/if (${Me.Pet.ID} && ${Me.Pet.CleanName.Find[${Me.CleanName}`s Familiar]} && (${MacroQuest.Server.Equal[PEQTGC]} || ${MacroQuest.Server.Equal[EQTitan]})) /pet get lost
 
 /return
 
