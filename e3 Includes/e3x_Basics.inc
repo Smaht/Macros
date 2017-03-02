@@ -613,7 +613,7 @@ SUB EVENT_runThruZone(line, ChatSender, eventParams)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_runThruZone ==>
 	
 	| ---------- Smaht: Don't do this if you are Smaht
-	/if (${Me.CleanName.Equal[Smaht]}) /return
+	/if (${Me.CleanName.Equal[${ChatSender}]}) /return
 
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"

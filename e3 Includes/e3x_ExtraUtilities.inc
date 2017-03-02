@@ -514,6 +514,54 @@ SUB EVENT_interestingMobs(line, cimActor)
 
 /return
 
+| --------------------------------------------------------------------------------------|
+| -- Shrinks your group if you have one of several shrink items 					   -|
+| --------------------------------------------------------------------------------------|
+
+#EVENT shrinkGroup "<#*#> Shrink your group!#*#"
+SUB EVENT_shrinkGroup
+
+	| ---------- Declare your shrink item.  If you have one that isn't in this list, simply add another elseif statement at the bottom
+	/declare shrink_ItemName string local
+
+	/if (${FindItem[Bracelet of the Shadow Hive].ID}) {
+		/varset shrink_ItemName Bracelet of the Shadow Hive
+	} else /if (${FindItem[Cobalt Bracer].ID}) {
+		/varset shrink_ItemName Cobalt Bracer
+	}
+
+	| ---------- You don't have a shrink item, exit
+	/if (!${shrink_ItemName.Length}) /return
+
+	| ---------- Cycle through group and shrink them
+	/declare i int local
+
+	/for i 0 to ${Group}
+
+		:recheckGroupMember
+		/if (${Spawn[${Group.Member[${i}]}].Height} > 2.40) {
+
+			| ---------- Equip the item if not already done so
+			/if (!${Defined[originalItem]}) {
+				/declare originalItem string local ${InvSlot[${FindItem[${shrink_ItemName}].WornSlot[1].Name}].Item.Name}
+				/exchange "${shrink_ItemName}" ${FindItem[${shrink_ItemName}].WornSlot[1].Name}
+			}
+			
+			/call e3_Cast ${Group.Member[${i}].ID} "${shrink_ItemName}"
+			/delay 10s !${Me.Casting}
+			/goto :recheckGroupMember
+		}
+
+	/next i
+
+	| ---------- Swap back to the original item if you used it
+	/if (${Defined[originalItem]}) {
+		/delay 5
+		/exchange "${originalItem}" ${FindItem[${shrink_ItemName}].WornSlot[1].Name}
+	}
+
+/return
+
 | --------------------------------------------------------------------------------------------------------|
 | -- Creates a comma-seperated string from a one-dimensional array (MUST be a one-dimensional array) 	 -|
 | -- To be replaced if I ever come up with a simple way to determine if a value is contained anywhere	 -|
@@ -685,6 +733,7 @@ SUB e3x_ExtraUtilities_Aliases
 		/noparse /squelch /alias /Ikkinz3 /say Sanctuary of the Transcendent
 		/noparse /squelch /alias /iYes /notify ConfirmationDialogBox Yes_Button leftmouseup
 		/noparse /squelch /alias /Yes /bca //notify ConfirmationDialogBox Yes_Button leftmouseup
+		/noparse /squelch /alias /ShrinkGroup /bc Shrink your group!
 
 	/if (${Debug}) /echo <== e3x_ExtraUtilities_Aliases -|
 /return
