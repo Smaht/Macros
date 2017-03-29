@@ -180,6 +180,7 @@ SUB EVENT_lootOn
 	/declare initialLootState bool local ${Auto_Loot}
 
 	/varset Auto_Loot TRUE
+	/call Event_YourKill
 
 	| ---------------- Report changes in /bc
 	/bc Loot State was ${initialLootState} and is now ${Auto_Loot}.  FreeInventory = ${Me.FreeInventory}
@@ -494,7 +495,7 @@ SUB EVENT_interestingMobs(line, cimActor)
 		/varset im_Epic ${Macro.Return}
 
 		| --------- Determine text colour
-		/if (${Spawn[${im_Name}].ID}) {
+		/if (${Spawn[${im_Name}].ID} && !${Select[${Spawn[${im_Name}].Type},PC,Untargetable,Mount,Corpse,Chest,Trigger,Trap,Timer,Item]}) {
 			/varset im_Color g
 			/if (!${im_Epic.Equal[NULL]}) /varset im_Color p
 		} else {
@@ -503,7 +504,7 @@ SUB EVENT_interestingMobs(line, cimActor)
 
 		| ---------- Write the final string
 		/varset im_Final /bc [+${im_Color}+] IM #${i} // NPC: ${im_Name}
-		/if (${Spawn[${im_Name}].ID}) /varset im_Final ${im_Final} ID: ${Spawn[${im_Name}].ID}
+		/if (${Spawn[${im_Name}].ID} && !${Select[${Spawn[${im_Name}].Type},PC,Untargetable,Mount,Corpse,Chest,Trigger,Trap,Timer,Item]}) /varset im_Final ${im_Final} ID: ${Spawn[${im_Name}].ID}
 		/if (!${im_Epic.Equal[NULL]}) /varset im_Final ${im_Final} Epic: ${im_Epic}
 		/if (!${im_Loot.Equal[NULL]}) /varset im_Final ${im_Final} Loot: ${im_Loot}
 		/if (!${im_Loc.Equal[NULL]}) /varset im_Final ${im_Final} Loc: ${im_Loc}

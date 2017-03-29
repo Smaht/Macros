@@ -1796,6 +1796,7 @@ SUB EVENT_listGroups
 |- Use, /group 'Name', or, /bc Group 'Name'.	-|
 |------------------------------------------------|
 #EVENT groupUp "<#1#> Group #2#"
+#EVENT groupUp "[#1#] Group #2#"
 SUB EVENT_groupUp(line, ChatSender, eventParams)
 /if (${Debug}) /echo |- EVENT_groupUp ==>
 
