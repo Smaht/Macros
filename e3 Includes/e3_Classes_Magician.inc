@@ -371,6 +371,8 @@ SUB EVENT_summonRangedWeapons(line, rangedTargetID)
 	| ---------------- Set summonedItem to 
 	/if (${Select[${Spawn[${rangedTargetID}].Class.ShortName},PAL,RNG,SHD,WAR]}) {
 	
+|		/varset summonedSpell Summon Arrows
+|		/varset summonedItem Summoned: Arrow
 		/varset summonedSpell Quiver of Marr
 		/varset summonedItem Summoned: Arrow of Marr
 

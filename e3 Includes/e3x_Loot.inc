@@ -15,7 +15,7 @@
 #event YourKill "You gain experience!!"
 #event YourKill "You gain party experience!!"
 #event YourKill "You gained raid experience!"
-#event YourKill "#*#test loot#*#"
+#event YourKill "#*#loot up#*#"
 SUB Event_YourKill(line)
 /if (${Debug} || ${Debug_Loot}) /echo |- Event_YourKill ==>
 
@@ -31,6 +31,9 @@ SUB Event_YourKill(line)
 		/declare new_lootedList string local
 		
 		/declare i int local 1
+
+		| ---------- Added by Smaht:  Allows the command "test loot" to reset the looting process
+		/if (${line.Find[test loot]}) /varset looted_Corpses
 	
 		| If I have a list of looted corpses, check if any of them have Disappeared.  If they have, rebuild the list
 		/if (${looted_Corpses.Length}) {

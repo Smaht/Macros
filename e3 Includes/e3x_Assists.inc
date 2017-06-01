@@ -20,7 +20,7 @@
 #event Assist "#1# tells you, 'Assist on #2#'"
 SUB event_Assist(line, ChatSender, int MobID)
 /if (${Debug} || ${Debug_Assists}) /echo |- event_Assist ==>
-/if (${Select[${Me.CleanName},Kwazyclub,Kwazycleaver]}) /mqlog ${Me.CleanName}: event_assist_100: entered assist: {MobID}=${MobID}: {Spawn[id ${MobID}].CleanName}=${Spawn[id ${MobID}].CleanName}
+
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"
 	/if (${Defined[ChatSender]}) /varset ChatSender ${Macro.Return.Arg[1,_]}
@@ -38,7 +38,6 @@ SUB event_Assist(line, ChatSender, int MobID)
 				/if (${Toggle-PvP}) /goto :assistAnyway
 				/if (${Debug} || ${Debug_Assists}) /echo [${Spawn[id ${MobID}].CleanName}] is not an acceptable TargetType.
 			} else {
-/if (${Select[${Me.CleanName},Kwazyclub,Kwazycleaver]}) /mqlog ${Me.CleanName}: event_assist_200: am at assistAnyway: {MobID}=${MobID}: {Spawn[id ${MobID}].CleanName}=${Spawn[id ${MobID}].CleanName}
 				:assistAnyway
 				
 				| Check target distance.
@@ -766,12 +765,6 @@ SUB check_Nukes
 				
 				/varset castName ${MyNukes[${nukeCounter}].Arg[1,/]}
 				/call e3_Cast ${AssistTarget} "${MyNukes[${nukeCounter}]}${If[${Me.Book[${castName}]},/GiveUpTimer|${If[${Me.Gem[${castName}]} || ${Me.Combat},0,90]},]}"
-				
-|/echo Smaht10: {castReturn} set to ${castReturn}
-|/echo Smaht11: {lastCast} set to ${lastCast}
-|/echo Smaht12: {castName} set to ${castName}
-|/echo Smaht13: (${lastCast.Equal[${castName}]} && (${castReturn.Equal[SUCCESS]} || ${castReturn.Equal[RESISTED]}))
-|/echo Smaht14: -------------------------------
 
 				| If cast was a success, update 
 				/if (${lastCast.Equal[${castName}]} && (${castReturn.Equal[SUCCESS]} || ${castReturn.Equal[RESISTED]})) {
@@ -838,7 +831,10 @@ SUB cast_longTermSpells(int spellTarget, string arrayName)
 		/varset castName ${${arrayName}[${i}].Arg[1,/]}
 		/varset spellName ${If[${FindItemCount[=${castName}]},${FindItem[=${castName}].Spell},${castName}]}
 		/varset spellTimer spellTimer_${spellTarget}_${arrayName}-${i}
-		/varset newTimerSetting ${Math.Calc[${Spell[${spellName}].Duration} * 60].Int}
+
+		| ---------- Edited by Smaht:  Added a multiplier of 20% for duration as my crew all has that ability
+|		/varset newTimerSetting ${Math.Calc[${Spell[${spellName}].Duration} * 60].Int}
+		/varset newTimerSetting ${Math.Calc[${Spell[${spellName}].Duration} * 60 * 1.4].Int}
 		
 		/if (${${spellTimer}}) {
 			/if (${Debug} || ${Debug_Assists}) /echo |- cast_longTermSpells - [${arrayName}] -|	Waiting to recast [${castName}].

@@ -138,4 +138,39 @@ SUB EVENT_beastlordShrinkGroup
 | -- Adds the include for pulling Praesertum's in Sseru													 -|
 | --------------------------------------------------------------------------------------------------------|
 
+| --------------------------------------------------------------------------------------|
+| -- Give time warnings on Zun`Muram Mordt Delt event in Tacvi		                   -|
+| --------------------------------------------------------------------------------------|
+
+#event tacvi_Delt "#*#Come you fools! Show me your strongest warrior and I will show you my first victim.#*#"
+#event tacvi_Delt "#*#Test Delt#*#"
+SUB EVENT_tacvi_Delt
+
+	/declare deltTimer timer local 2m
+	
+	:1mloop
+	/if (${deltTimer} < 60) {
+		/shout 1m left!
+		/goto 30secloop
+	}
+	/delay 5s
+	/goto 1mloop
+
+	:30secloop
+	/if (${deltTimer} < 30) {
+		/shout 30sec left!
+		/goto 10secloop
+	}
+	/delay 5s
+	/goto 30secloop
+
+	:10secloop
+	
+
+|/shout Starting!
+	
+
+/return
+
+
 |#include e3 Includes\e3x_Sseru.inc
