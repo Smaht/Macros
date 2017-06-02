@@ -133,11 +133,9 @@ SUB itemToCursor(itemName)
 	/declare miscTimer timer local 3s
 
 	| ---------------- Open the inventory, really really make sure it's open
-	:openInventory
-	/if (!${Window[InventoryWindow].Open}) /nomodkey /keypress i
-	/delay 5 ${Window[InventoryWindow].Open}
-	/if (!${Window[InventoryWindow].Open} && ${miscTimer}) /goto :openInventory
-		
+	/keypress OPEN_INV_BAGS
+	/delay 1s ${Window[Pack8].Open}
+
 	| ---------------- Loop looking for item.  Picks it up and puts in on the cursor				
 	/for x 1 to 8  
 					
