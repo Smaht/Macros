@@ -705,6 +705,7 @@ SUB e3x_ExtraUtilities_Aliases
 		/noparse /squelch /alias /cfb /bc [+y+] Check for buff:
 		/noparse /squelch /alias /cfd /bc [+y+] Check for debuff:
 		/noparse /squelch /alias /CIM /bc Check for Interesting Mobs in ${Zone}
+		/noparse /squelch /alias /Comm /echo Execute Command:
 		/noparse /squelch /alias /CTB /bc Check for Typical Buffs
 		/noparse /squelch /alias /deploy /bc Deploy:
 		/noparse /squelch /alias /dis /bcaa //disband

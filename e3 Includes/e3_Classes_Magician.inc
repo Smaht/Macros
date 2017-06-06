@@ -503,6 +503,7 @@ Sub coh_SingleTarget(cohTarget)
 
 	| ---------- Disband self
 	/squelch /bct ${Me.CleanName} //disband
+	/sit
 
 /Return
 

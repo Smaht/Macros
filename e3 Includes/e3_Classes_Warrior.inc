@@ -159,37 +159,40 @@ SUB EVENT_DebuffTarget(line, SlowedTarget)
 /return
 
 | --------------------------------------------------------------------------------------|
-| -- Check whos properly connected to EQBC											   -|
+| -- Execute a set of predefined commands											   -|
 | --------------------------------------------------------------------------------------|
 
-| --------- Removed for the time being
+#EVENT execCommand "[MQ2] Execute Command: #1#"
+SUB EVENT_execCommand(line, commandSet)
 
+	| ---------------- If I am not the single main toon, exit
+	/if (!${Me.CleanName.Equal[${classLeader}]}) /return
 
+	| ---------- Define the location of saved commands
+	/if (!${Defined[execCommand_Ini]}) /declare execCommand_Ini string outer ${Ini[${MacroData_Ini},File Paths,Saved Commands]}
 
+	| ---------- If the chEvent doesn't exist, exit
+	/if (!${Ini[${execCommand_Ini}].Find[${commandSet}]}) {
+		/bc [+y+] ${commandSet} not found!  Exiting ...
+		/return commandSet_NOT_FOUND
+	}
 
-|**
+	| ---------- Create an array of saved commands from the config file
+	/if (${Ini[${execCommand_Ini},${commandSet},Command#1].Length}) /call IniToArray "${execCommand_Ini},${commandSet},Command#" commandsToExecute
 
-Additional warrior taunt discs.  I'm not sure hwo thses work, so I haven't added them.
-	bazu bellow
-	scowl
-	scowl rk. ii
-	scowl rk. iii
-	sneer
-	sneer
-	sneer
-	bazu bluster
-	bazu
-	bazu
-	jeer
-	jeer
-	jeer
-	bazu roar
-	bazu
-	bazu
-	scoff
-	grendlaen roar
-	scorn
-	krondal's roar
-	ridicule
+	| ---------- Execute the commands in the list
+	/declare i int local
+	/for i 1 to ${commandsToExecute.Size}
 
-**|
+		/docommand ${commandsToExecute[${i}]}
+		/delay 2
+
+	/next i
+
+	/echo Completed running ${commandSet}
+
+	| ---------- Cleanup
+	/if (${Defined[execCommand_Ini]}) /deletevar execCommand_Ini
+	/if (${Defined[commandsToExecute]}) /deletevar commandsToExecute
+
+/return

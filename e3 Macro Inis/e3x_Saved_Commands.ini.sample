@@ -1,0 +1,8 @@
+[Skeleton]
+Command#1=
+Command#2=
+Command#3=
+
+[Example]
+Command#1=/bct tank //varset EngagePct 100
+Command#2=/bct wizard //varset EngagePct 90
