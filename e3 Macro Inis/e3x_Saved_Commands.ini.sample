@@ -1,8 +1,10 @@
 [Skeleton]
+Description=
 Command#1=
 Command#2=
 Command#3=
 
 [Example]
+Description=Set of commands for setting tank and wizard EngagePct
 Command#1=/bct tank //varset EngagePct 100
 Command#2=/bct wizard //varset EngagePct 90
