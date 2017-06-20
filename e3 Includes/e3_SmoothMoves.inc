@@ -639,7 +639,8 @@ SUB click_Door(locToStart, float snapHeading, float snapLook)
 	/face fast heading ${Math.Calc[${snapHeading}*-1]}
 	/look ${snapLook}
 	/delay 1s
-	/keypress U
+	| ---------- Smaht: Switched from "U" to "USE" toi avoid keybind issues
+	/keypress USE
 	/delay 2s
 	
 /if (${Debug} || ${Debug_SmoothMoves}) /echo <== click_Door -|
@@ -687,7 +688,8 @@ SUB click_Zone(locToStart, int startZone)
 		
 	|---------------------------Shifts look angle up and down as I click.
 		/look ${If[${Me.Look} < 45,${Math.Calc[${Me.Look} + 5]},-45]}
-		/keypress U
+		| ---------- Smaht: Switched from "U" to "USE" toi avoid keybind issues
+		/keypress USE
 		/delay 2
 		/if (${keypress_Timer} && ${Zone.ID} && ${Zone.ID} == ${startZone}) /goto :keypress
 		
