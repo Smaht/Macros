@@ -501,8 +501,8 @@ SUB EVENT_newclickIt(line, ChatSender)
 SUB EVENT_clickIt(line, ChatSender, locToStart)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_clickIt ==>
 
-	| ---------- Smaht: Don't do this if you are Smaht
-	/if (${Me.CleanName.Equal[Smaht]}) /return
+	| ---------- Smaht: Don't do this if you issued the command
+	/if (${Me.CleanName.Equal[${ChatSender}]}) /return
 
 	| -Verify the event
 	/call verifyEvent "${ChatSender}" "${line}"
@@ -558,7 +558,7 @@ SUB EVENT_clickIt(line, ChatSender, locToStart)
 					| -Shifts look angle up and down while attempting to click.
 					/look ${If[${Me.Look} < 75,${Math.Calc[${Me.Look} + 5]},-75]}
 					/if (${Target.ID}) /squelch /target clear
-					/keypress U
+					/keypress USE
 					/delay 2
 					
 					| -Check if I have zoned, or moved.
@@ -612,7 +612,7 @@ SUB EVENT_clickIt(line, ChatSender, locToStart)
 SUB EVENT_runThruZone(line, ChatSender, eventParams)
 /if (${Debug} || ${Debug_Basics}) /echo |- EVENT_runThruZone ==>
 	
-	| ---------- Smaht: Don't do this if you are Smaht
+	| ---------- Smaht: Don't do this if you issued the command
 	/if (${Me.CleanName.Equal[${ChatSender}]}) /return
 
 	| -Verify the event
