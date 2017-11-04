@@ -157,6 +157,9 @@ sub event_petWeapons(string line, string ChatSender)
 		}
 	}
 
+	| ---------- Check to see if you have a pending change from items cast
+	/if (${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Pending Exchange].Length} && ${Ini[${MacroData_Ini},${MacroQuest.Server}-${Me.CleanName},Pending Exchange].NotEqual[NONE]} && !${itemExchange_Timer}) /call completePendingExchange
+
 /if (${Debug} || ${Debug_MAG}) /echo <== EVENT_petWeapons -|
 /return
 

@@ -116,6 +116,8 @@ SUB WAR_CharacterSettings
 #EVENT DebuffTarget "#1# slows down."
 #EVENT DebuffTarget "#1# has been crippled."
 #EVENT DebuffTarget "#1# looks very uncomfortable."
+#EVENT DebuffTarget "#1# is surrounded by an outline of cold flame."
+#EVENT DebuffTarget "#1# is immolated by blazing flames."
 SUB EVENT_DebuffTarget(line, SlowedTarget)
 
 	| ---------------- If I am not the single main toon, exit
@@ -153,6 +155,20 @@ SUB EVENT_DebuffTarget(line, SlowedTarget)
 	/if (${line.Find[crippled]}) {
 		/bc [+r+] Crippled ${SlowedTarget}
 		/if (${NetBots[${classLeader}].Raid}) /rs Crippled ${SlowedTarget}
+		/return
+	}
+
+	| ---------------- Ro's Illumination (Druid Atk/AC debuff)	
+	/if (${line.Find[outline]}) {
+		/bc [+r+] Ro's Illumination on ${SlowedTarget}
+		/if (${NetBots[${classLeader}].Raid}) /rs Ro's Illumination on ${SlowedTarget}
+		/return
+	}
+
+	| ---------------- Hand of Ro (Druid Atk/AC/FR debuff)
+	/if (${line.Find[immolated]}) {
+		/bc [+r+] Hand of Ro on ${SlowedTarget}
+		/if (${NetBots[${classLeader}].Raid}) /rs Hand of Ro on ${SlowedTarget}
 		/return
 	}
 

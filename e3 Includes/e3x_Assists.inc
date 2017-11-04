@@ -1629,13 +1629,13 @@ Sub assist_Setup
 
 | ------------------------------------- Smaht: End of additional e3x functionality
 
-	
+	| ---------- Smaht:  Adjusted default values to 1% from 98%
 	/if (!${Defined[EngagePct]}) {
-		/if (${Debug} || ${Debug_Assists}) /echo ERROR: @[EngagePct] - EngagePct is invalid, defaulting to 98%
-		/declare EngagePct int outer 98
+		/if (${Debug} || ${Debug_Assists}) /echo ERROR: @[EngagePct] - EngagePct is invalid, defaulting to 1%
+		/declare EngagePct int outer 1
 	} else /if (${Defined[EngagePct]} && !${EngagePct}) {
-		/if (${Debug} || ${Debug_Assists}) /echo ERROR: @[EngagePct] - EngagePct is invalid, defaulting to 98%
-		/varset EngagePct 98
+		/if (${Debug} || ${Debug_Assists}) /echo ERROR: @[EngagePct] - EngagePct is invalid, defaulting to 1%
+		/varset EngagePct 1
 	}
 	
 	| [Melee Abilities].

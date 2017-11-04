@@ -175,13 +175,14 @@ SUB EVENT_AE_Rez
 				| Check if the corpse is rezzable
 				/call TrueTarget ${corpseID}
 				/consider
-				
+
 				:waitforEvent
 				/delay 5
 				/doevents CorpseExpired
+
 				/if (${lastChecked} != ${corpseID} && ${miscTimer}) /goto :waitforEvent
-				
-				/if (!${Bool[${rezzable}]}) {
+
+				/if (!${Bool[${rezzable}]}) {				
 					
 					/if (${rezzable.Equal[UNKNOWN]}) {
 						/say I could not determine whether [${Spawn[id ${corpseID}].CleanName}] is rezzable.  Attempting to rez.
@@ -250,6 +251,7 @@ SUB EVENT_AE_Rez
 #event CorpseExpired "This corpse #1# be resurrected."
 Sub Event_CorpseExpired(line, corpseExpired)
 /if (${Defined[lastChecked]}) {
+
 	/if (${Debug}) /echo |- EVENT_CorpseExpired ==>
 
 		/varset lastChecked ${Target.ID}
