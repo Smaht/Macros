@@ -208,9 +208,9 @@ SUB ROG_CharacterSettings
 | --------------------------------------------------------------------------------------------------------|
 
 #event sewersExp "#*#Sewers: #1#"
-#event sewersExp "<#1#> Invite me to Sewers Expedition"
+#event sewersExp "<#1#> Invite me to Sewers Expedition#2#"
 #event sewersExp "#1# tells you, 'Invite me to Sewers Expedition'"
-SUB EVENT_sewersExp(line, sewersTarget)
+SUB EVENT_sewersExp(line, sewersTarget, sewersInstance)
 
 	| ---------- Exit if you aren't the classLeader
 	/if (!${Me.CleanName.Equal[${classLeader}]}) /return
@@ -228,7 +228,11 @@ SUB EVENT_sewersExp(line, sewersTarget)
 
 	/target Gamesh
 	/delay 10 ${Target.ID}
+	/if (${sewersInstance.Length}) {
+		/say ${sewersInstance}
+	} else {
 	/say plant
+	}
 
 	/target ${sewersTarget}
 	/delay 10

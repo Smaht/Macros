@@ -265,13 +265,11 @@ SUB EVENT_dismountOnZone
 #event sewersGroup "#*#Build Sewers Group"
 SUB EVENT_sewersGroup
 
-|	/windowstate DynamicZoneWnd open
-
 	/declare sewersGroupMember1 string local Smaht
 	/declare sewersGroupMember2 string local Iddyhitty
-	/declare sewersGroupMember3 string local Tinee
+	/declare sewersGroupMember3 string local Kwazyaxe
 	/declare sewersGroupMember4 string local Kwazyhatchet
-	/declare sewersGroupMember5 string local Kwazybludgeon
+	/declare sewersGroupMember5 string local Kwazyclub
 
 	/dzadd ${sewersGroupMember1}
 	/dzadd ${sewersGroupMember2}
@@ -282,6 +280,15 @@ SUB EVENT_sewersGroup
 
 	/delay 10
 	/bca //notify ConfirmationDialogBox Yes_Button leftmouseup
+
+	/target Smaht
+	/delay 30
+
+	/windowstate DynamicZoneWnd open
+	/delay 10
+
+	/notify DynamicZoneWnd DZ_Leader_MakeLeader leftmouseup
+	/delay 5
 
 	/windowstate DynamicZoneWnd close
 
