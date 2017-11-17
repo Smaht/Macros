@@ -6,6 +6,7 @@ SUB Main
 
 	| ---------- Launch e3 with some class specific includes
 	/echo Starting e3_${Me.Class}
+	/if (${Me.Class.ShortName.Equal[SHD]}) /mac e3x_ShadowKnight
 	/mac e3x_${Me.Class}
 
 /return

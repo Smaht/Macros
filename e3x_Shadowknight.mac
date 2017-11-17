@@ -5,7 +5,7 @@
 
 #turbo 20
 
-#include e3 Includes\e3x_Setup_Shadowknight.inc
+#include e3 Includes\e3x_Setup_ShadowKnight.inc
 #include e3 Includes\e3x_Setup.inc
 
 SUB Main(modeSelect)
