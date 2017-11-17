@@ -8,7 +8,6 @@
 | -- Fritten by Killians of PEQ									 	 -|
 
 #include e3 Includes\e3_Background.inc
-#include e3 Includes\e3_Basics.inc
 #include e3 Includes\e3_Buy.inc
 #include e3 Includes\e3_Combine.inc
 #include e3 Includes\e3_CorpseSummoning.inc
@@ -26,6 +25,7 @@
 
 #include e3 Includes\e3x_Alerts.inc
 #include e3 Includes\e3x_Assists.inc
+#include e3 Includes\e3x_Basics.inc
 #include e3 Includes\e3x_BegForBuffs.inc
 #include e3 Includes\e3x_BuffCheck.inc
 #include e3 Includes\e3x_Casting.inc
