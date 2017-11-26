@@ -29,6 +29,7 @@
 #include e3 Includes\e3x_BegForBuffs.inc
 #include e3 Includes\e3x_BuffCheck.inc
 #include e3 Includes\e3x_Casting.inc
+#include e3 Includes\e3x_CrowdControl.inc
 #include e3 Includes\e3x_Loot.inc
 #include e3 Includes\e3x_ExtraUtilities.inc
 #include e3 Includes\e3x_Utilities.inc

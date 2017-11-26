@@ -68,6 +68,13 @@ SUB event_Assist(line, ChatSender, int MobID)
 					} else {
 						/varset AllowControl TRUE
 					}
+
+					| ------------- Smaht: Inserted for crowdControl calls
+					| ------------- Smaht: Enter crowdControl routine IF you are the 1st entry in the crowdControl list AND you are under macro control
+					/if (${Me.Name.Equal[${crowdControlList.Arg[1,,]}]} && ${AllowControl}) {
+						/call controlCrowdControl ${AssistTarget}
+						/if (${Debug} || ${Debug_Assists}) /echo Assist.inc crowdControl target is ${AssistTarget}
+					}
 					
 					| ------------- Smaht: Inserted for offtank calls
 					| ------------- Smaht: Enter offtanking routine IF you are an offtank AND you are under macro control AND you are not the primaryTank
@@ -1626,6 +1633,11 @@ Sub assist_Setup
 		/call INItoArray "${Character_Ini},Offtanking,Protectee#" MyProtectees
 		/call ArrayToString MyProtectees protecteeList
 	}
+
+	| ------------ Smaht: Added for CrowdControl
+	/if (${Ini[${Character_Ini},Crowd Control,CC Spell Info].Length}) /call IniToVar "${Character_Ini},Crowd Control,CC Spell Info" mezSpellFullInfo string outer
+	/if (${Ini[${Character_Ini},Crowd Control,CC Extension].Length}) /call IniToVar "${Character_Ini},Crowd Control,CC Extension" mezExtension int outer
+	/if (${Ini[${Character_Ini},Crowd Control,CC Member#1].Length}) /call INItoArray "${Character_Ini},Crowd Control,CC Member#" MyCCTargets
 
 | ------------------------------------- Smaht: End of additional e3x functionality
 
