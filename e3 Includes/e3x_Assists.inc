@@ -71,7 +71,7 @@ SUB event_Assist(line, ChatSender, int MobID)
 
 					| ------------- Smaht: Inserted for crowdControl calls
 					| ------------- Smaht: Enter crowdControl routine IF you are the 1st entry in the crowdControl list AND you are under macro control
-					/if (${Me.Name.Equal[${crowdControlList.Arg[1,,]}]} && ${AllowControl}) {
+					/if (${Me.Name.Equal[${MyCCTargets[1]}]} && ${AllowControl}) {
 						/call controlCrowdControl ${AssistTarget}
 						/if (${Debug} || ${Debug_Assists}) /echo Assist.inc crowdControl target is ${AssistTarget}
 					}

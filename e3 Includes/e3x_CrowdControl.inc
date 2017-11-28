@@ -1,8 +1,16 @@
 | --------------------------------------------------------------------------------------|
-| -- e3x_CrowdControlv1.0	( extended functionality designed to work with e3.mac )	   -|
+| -- e3x_CrowdControlv1.9.5	( extended functionality designed to work with e3.mac )	   -|
 | -- Written by Smaht							                                       -|
 | --------------------------------------------------------------------------------------|
 | -- Contains extended functions for e3.mac to provide crown control.	               -|
+| --------------------------------------------------------------------------------------|
+| -- Version 1.9,5:  - All major bugs worked out                                       -|
+| --                 - Bards spell casting fixed                                       -|
+| --                 - Fixes made for mobs than no longer have corpses                 -|
+| --                 - Bards mez target list fixed to no more than 4 mobs              -|
+| --                 - Imunity as yet untested                                         -|
+| --------------------------------------------------------------------------------------|
+| -- Version 1.0.0:  Initial Build                                                     -|
 | --------------------------------------------------------------------------------------|
 
 
@@ -22,30 +30,6 @@
 | ----- Ensure taunt is off, and exit                                                  -|
 | --------------------------------------------------------------------------------------|
 
-| Gotta set the protecteeList for bards/ench
-|**
-
-Basic functionlality"
-- Find # of targets
-- Loop through targets
-- If the target is not the main assist, nor is of a crappy type, continue (otherwise exit)
-
-
-CharINI files will need:
-- crowdcontrol boolean (TRUE/FALSE)
-- protecteeList
-- Duration modifier on Mez
-
-
-Need some functions for (these need to be type agnostic):
-- Nuking the Array
-- Building the array
-- Resizing the array (down or up)
-- Test harness for these functions
-
-
-
-**|
 
 | ---------------------------------------------------------------------------------------------------------------|
 | -- controlCrowdControl (CCC) is the routine run to determine who does what for crowd control 					-|
@@ -177,6 +161,7 @@ sub controlCrowdControl(int mainAssistID)
 		}
 
 	/next i
+	:skipOutOfForLoop
 
 	| ---------- Buid the lists for each crowd controller
 	| ---------- Start by concatenating the lists above in priority order
@@ -216,7 +201,26 @@ sub controlCrowdControl(int mainAssistID)
  	| ---------- Write each list for each crowd controller
  	/declare j int local 1
  	/declare k int local 1
+ 	/declare l int local 0
  	/for j 1 to ${Math.Calc[${crowdControlTargets.Count[,]} + 1]}
+
+ 		| ---------- If the crowdController is a bard, and already has 4 in his list, skip him
+ 		:mezBardTooMany
+ 		/if (${Spawn[pc ${crowdControlList.Arg[${k},,]}].Class.ShortName.Equal[BRD]} && (${Math.Calc[${crowdController_${k}_List.Count[,]} + 1]} == 4)) {
+
+ 			| ---------- Exit if you have checked all chars and their lists are too long
+ 			/if (${l} ==  ${Math.Calc[${crowdControlList.Count[,]} + 1]}) /goto :endForLoop1
+
+ 			| ---------- Increase {k} to move the next entry to the next list
+ 			/if (${k} < ${Math.Calc[${crowdControlList.Count[,]} + 1]}) {
+ 				/varcalc k ${k} + 1
+  			} else {
+ 				/varset k 1
+ 			}
+ 			
+ 			/varcalc l ${l} + 1
+ 			/goto :mezBardTooMany			
+ 		}
 
 		| ---------- If the crowdController_X_List is empty, set it to the value, otherwise append it to the list
 		/if (!${crowdController_${k}_List.Length}) {
@@ -239,25 +243,20 @@ sub controlCrowdControl(int mainAssistID)
 			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: CCC102: {crowdController_${k}_List} = ${crowdController_${k}_List}
 		}
 
+	:endForLoop1
 	/next j
 
 	| ---------- For each list call out the crowd control assignements and then move on to your own (list in reverse)
-	/declare l int local
-	/for l ${Math.Calc[${crowdControlList.Count[,]} + 1]} to 1 step -1
-
-		| ---------- If this is you in the list, go directly to crowdControlMobs
-		/if (${l} = 1) {
-/echo			/call event_crowdControlMobs "" "${Me.CleanName}" "${crowdController_${l}_List}"
-			/next l
-		}
+	/for i ${Math.Calc[${crowdControlList.Count[,]} + 1]} downto 1
 
 		| ---------- Call out the mez list for everyone else
-		/echo ${crowdControlList.Arg[${l},,]} mez the following: ${crowdController_${l}_List}
+		/bc ${crowdControlList.Arg[${i},,]} mez the following: ${crowdController_${i}_List}
 
-	/next l
+	:endForLoop2
+	/next i
 
 	| ---------- Cleanup
-	/if (${Defined[crowdControlList]}) /deletevar crowdControlList
+	/deletevar crowdControlList
 
 /return ${mainAssistID}
 
@@ -276,10 +275,6 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 
 	| ---------- Exit if I am not the {mezAgent}, if I am not a bard/ench or if {mezSpell} isn't defined
 	/if (!${Me.CleanName.Equal[${mezAgent}]} || !${Select[${Me.Class.ShortName},ENC,BRD]}) /return
-	/if (!${Defined[mezSpell]}) {
-		/bc [+r+] {mezSpell} not defined!  Mezzing failed for ${targetMezMobs}!
-		/return
-	}
 
 	| ---------- Declare a few useful variables
 	/declare mezZoneID int local ${Zone.ID}
@@ -287,14 +282,14 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 	/declare crowdControlMobsDebugChannel string local echo
 	/declare mobsToMez bool local FALSE
 	/declare mezSpell string local
-	/declare mezLevel string local
+	/declare mezSpellLevel string local
 	/declare i int local
 
 	| ---------- Define {mezSpell} and {mezSpellLevel}
 	/varset mezSpell ${mezSpellFullInfo.Arg[1,/]}
 	/if (${mezSpellFullInfo.Find[/Level|]}) {
 			/call argueString Level "${mezSpellFullInfo}"
-			/varset mezLevel ${Macro.Return}
+			/varset mezSpellLevel ${Macro.Return}
 	}
 
 	| ------------ Debug Info
@@ -304,15 +299,21 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM012: {mezSpellLevel} = ${mezSpellLevel}
 		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM013: {mezSpellFullInfo} = ${mezSpellFullInfo}
 	}
+
+	/if (!${Defined[mezSpell]}) {
+		/bc [+r+] {mezSpell} not defined!  Mezzing failed for ${targetMezMobs}!
+		/return
+	}
 	
 	| ---------- Prep for future mezzing - make sure spells are memmed
-|	/call memMezSpells
+	/memorize "${mezSpell}|${DefaultGem}"
+	/delay 10s !${Window[SpellBookWnd].Open}
 
 	| ---------- Build and populate an array of entries according to the size/number of target mobs
-	| ---------- Array structure:  Mob.ID | Macro.Timestamp | Mezzable
+	| ---------- Array structure:  Mob.ID | Macro.RunTime | Mezzable
 	| ---------- Where mezzable mobs have a value of 1 (all mobs initially), and unmezzable mobs have this value set to 0
 	| ---------- Where an unmezzable mob as defined here is either: a) truly unmezzable, b) a corpse, or c) of higher level than the spell allows
-	/declare arrayTargetMobs [${Math.Calc[${targetMezMobs.Count[,]} + 1]},3] int local 1
+	/declare arrayTargetMobs[${Math.Calc[${targetMezMobs.Count[,]} + 1]},3] int local 1
 	/for i 1 to ${Math.Calc[${targetMezMobs.Count[,]} + 1]}
 
 		/varset arrayTargetMobs[${i},1] ${Int[${targetMezMobs.Arg[${i},,]}]}
@@ -331,16 +332,17 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 
 	| ---------- Alarm if you can't mez as many mobs as you've been given
 	/if (${Defined[mezExtension]}) {
-		/declare mezDuration float local ${Math.Calc[${Spell[${mezSpell}].Duration} * ${Math.Calc[1 + ${mezExtension}]}]}
+		/declare mezDuration float local ${Math.Calc[(60 * ${Spell[${mezSpell}].Duration} / 10) * (1 + (${mezExtension} / 100))]}
 	} else {
-		/declare mezDuration float local ${Spell[${mezSpell}].Duration}
+		/declare mezDuration float local ${Math.Calc[60 * ${Spell[${mezSpell}].Duration} / 10]}
 	}
-	/declare mezCastCycle float local ${Math.Calc[${Spell[${mezSpell}].MyCastTime} + 30]}
+	/if (${Me.Class.ShortName.Equal[BRD]}) /declare mezCastCycle float local 3.2
+	/if (${Me.Class.ShortName.Equal[ENC]}) /declare mezCastCycle float local ${Math.Calc[${Spell[${mezSpell}].MyCastTime} + 2]}
 
-	| ---------- If the difference between what you can mez, and what you can mez is > 1, alarm
+	| ---------- If the difference between what you can mez, and what you can mez is < 0, alarm
 	| -- ${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} = Number of mobs you can mez
 	| -- ${Math.Calc[${targetMezMobs.Count[,]} + 1]} = Number of mobs you have been asked to mez
-	/if (${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} + 1]}]} > 1) /bc [+r+] I have been asked to mez too many mobs! (${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} + 1]}]})
+	/if (${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} + 1]}]} < 0) /bc [+r+] I have been asked to mez too many mobs! (${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} + 1]}]})
 
 	| ------------ Debug Info
 	/if (${Debug} || ${crowdControlMobsDebug}) {
@@ -348,7 +350,7 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM031: {mezCastCycle} = ${mezCastCycle}
 		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM032: {Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} = ${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int}
 		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM033: {Math.Calc[${targetMezMobs.Count[,]} + 1]} = ${Math.Calc[${targetMezMobs.Count[,]} + 1]}
-		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM034: {Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} = ${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]}
+		/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM034: {Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]} = ${Math.Calc[${Float[${Math.Calc[${mezDuration} / ${mezCastCycle}]}].Int} - ${Math.Calc[${targetMezMobs.Count[,]}]}]}
 	}
 
 	| ---------- Mez loop
@@ -364,7 +366,7 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 	| ---------- Loop through array, check to see if any mobs are left to mez (${arrayTargetMobs[${i},4]} = 1)
 	/varset mobsToMez FALSE
 	/for i 1 to ${Math.Calc[${targetMezMobs.Count[,]} + 1]}
-		/if (${arrayTargetMobs[${i},3]} = 1) /varset mobsToMez TRUE
+		/if (${arrayTargetMobs[${i},3]} == 1) /varset mobsToMez TRUE
 	/next i
 
 	| ---------- Exit this routine if there are no longer any mobs to mez
@@ -378,56 +380,71 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 	/for i 1 to ${Math.Calc[${targetMezMobs.Count[,]} + 1]}
 
 		| ---------- Mark the mob as dead (0) if it's a corpse
-		/if (${Spawn[id ${Int[${targetMezMobs.Arg[${i},,]}]}].Type.Equal[Corpse]}) /varset arrayTargetMobs[${i},3] 0
-		
+		/if (${Spawn[id ${Int[${targetMezMobs.Arg[${i},,]}]}].Type.Equal[Corpse]} || !${Spawn[id ${Int[${targetMezMobs.Arg[${i},,]}]}].ID}) /varset arrayTargetMobs[${i},3] 0
+
 		| ---------- Exit to the next mob if it's been previously marked as dead or unmezzable
-		/if (${arrayTargetMobs[${i},3]} = 0) {
+		/if (${arrayTargetMobs[${i},3]} == 0) {
 
 			| ------------ Debug Info
 			/if (${Debug} || ${crowdControlMobsDebug}) {
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM060: {i} = ${i}
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM061: {arrayTargetMobs[${i},1]} = ${arrayTargetMobs[${i},1]} (Mob.ID)
-				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM062: {arrayTargetMobs[${i},2]} = ${arrayTargetMobs[${i},2]} (Macro.Timestamp)
+				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM062: {arrayTargetMobs[${i},2]} = ${arrayTargetMobs[${i},2]} (Macro.RunTime)
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM063: {arrayTargetMobs[${i},3]} = ${arrayTargetMobs[${i},3]} (Dead/Ummezzable)
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM064: {Target.Type.Equal[Corpse]} = ${Target.Type.Equal[Corpse]}
 			}
 
-			/next i
+			/goto :endMezLoop
 		}
 
 		| ---------- Target the mob
 		/call TrueTarget ${arrayTargetMobs[${i},1]}
 		/delay 3
 
-		| ---------- IF {the mob has no target (still mezzed) AND the Macro.Timestamp is less than the mez timer), skip
-		/if (!${Me.TargetOfTarget.Type.Equal[PC]} && ${Macro.Timestamp} < ${arrayTargetMobs[${i},2]}) {
+		| ---------- IF {the mob has no target (still mezzed) AND the Macro.RunTime is less than the mez timer), skip
+		/if (${Me.TargetOfTarget.Type.Equal[PC]} && ${Macro.RunTime} < ${arrayTargetMobs[${i},2]}) {
 		
 			| ------------ Debug Info
 			/if (${Debug} || ${crowdControlMobsDebug}) {
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM070: {i} = ${i}
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM071: {arrayTargetMobs[${i},1]} = ${arrayTargetMobs[${i},1]} (Mob.ID)
-				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM072: {arrayTargetMobs[${i},2]} = ${arrayTargetMobs[${i},2]} (Macro.Timestamp)
+				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM072: {arrayTargetMobs[${i},2]} = ${arrayTargetMobs[${i},2]} (Macro.RunTime)
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM073: {arrayTargetMobs[${i},3]} = ${arrayTargetMobs[${i},3]} (Dead/Ummezzable)
 				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM074: {Me.TargetOfTarget.Type.Equal[PC]} = ${Me.TargetOfTarget.Type.Equal[PC]}
+				/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM075: {Macro.RunTime} = ${Macro.RunTime}
 			}
 
-			/next i
+			/goto :endMezLoop
 		}
 
 		| ---------- Cast mez, loop if unsuccessful
 		:recastMez
-		/call e3_Cast ${arrayTargetMobs[${i},1]} "${mezSpell}"
-|**		
-		/if (${Me.Class.ShortName.Equal[ENC]}) /call e3_Cast ${arrayTargetMobs[${i},1]} "${mezSpell}"
+		/if (${Me.Class.ShortName.Equal[ENC]}) {
+			/call e3_Cast ${arrayTargetMobs[${i},1]} "${mezSpell}"
+			:completeTheCast
+			/if (${Me.Casting.ID}) {
+				/delay 2
+				/goto :completeTheCast
+			}
+
+		}
 
 		/if (${Me.Class.ShortName.Equal[BRD]}) {
 
-			/casttwist spell
-			
+			/twist stop
+			/twist once ${Me.Gem[${mezSpell}]}
+			/delay 38
+			/twist stop
+
+			| ---------- Check for resists
+			/varset castReturn SUCCESS
+			/doevents Resisted2
+			/doevents Resisted
+			/doevents Immune
 		}
-**|
+
 		| ---------- Mark the mob as unmezzable (0) if it's unmezzable
-		/if (${Macro.Return.Equal[IMMUNE]}) {
+		/if (${castReturn.Equal[IMMUNE]}) {
 
 			| ------------ Debug Info
 			/if (${Debug} || ${crowdControlMobsDebug}) /docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM080: Setting {arrayTargetMobs[${i},3]} to 0 as the mob is unmezzable
@@ -435,165 +452,34 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 			/varset arrayTargetMobs[${i},3] 0
 			/next i
 		}
-		/if (!${Macro.Return.Equal[SUCCESS]}) {
+		/if (!${castReturn.Equal[SUCCESS]}) {
 
 			| ------------ Debug Info
 			/if (${Debug} || ${crowdControlMobsDebug}) /docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM090: Looping to :recastMez as the cast was unsuccessful
 
+			/delay 3
+			/if (!${Target.ID}) /goto :endMezLoop
 			/goto :recastMez
 		}
 
 		| ---------- Update the timer
 		| ---------- Timer is set to: CurrentTime + mezDuration - Setup/Recast. ie when should you be recasting by
 		| ---------- Where Setup/Recast time is:  CastTime + 2.5secs of Spell Recovery
-		/varset arrayTargetMobs[${i},2] ${Math.Calc[${Macro.Timestamp} + ${mezDuration} - ${Spell[${mezSpell}].CastTime} - 25]}
+		/varset arrayTargetMobs[${i},2] ${Math.Calc[${Macro.RunTime} + ${mezDuration} - ${Spell[${mezSpell}].CastTime} - 3]}
 
+		:endMezLoop
 		| ------------ Debug Info
 		/if (${Debug} || ${crowdControlMobsDebug}) {
-			/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM100: {Macro.Return} = ${Macro.Return} (Success of the {mezSell} cast)
+			/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM100: {castReturn} = ${castReturn} (Success of the {mezSell} cast)
 			/docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM101: {arrayTargetMobs[${i},2]} = ${arrayTargetMobs[${i},2]}
 		}
 
 	/next i
-|	/goto :mezLoop
+	/goto :mezLoop
 
 	| ------------ Debug Info
 	/if (${Debug} || ${crowdControlMobsDebug}) /docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM110: Should never get to this point, should exit elsewhere
 
-/return
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-| ---------- Part of the original tanking part, not (I don't think) pertitnent, left so I can refer to it
-| ---------- Nuke everything under here (I think)
-|**
-
-
-
-	:skipOutOfForLoop
-
-	| ------------ If crowdControlTargetID is already set, then it's a high-priority target - skip to crowd control
-	/if (${crowdControlTargetID}) {
-		
-		| ------------ Debug Info
-		/if (${Debug} || ${controlCrowdControlDebug}) /docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 090: High Priority Target Chosen: crowdControlTargetID set to ${crowdControlTargetID}
-
-		/goto :beginCrowdControl
-	}
-
-	| ------------ If medPriTargets has a length, then pick one (the first, it's closest) and begin crowd control
-	/if (${medPriTargets.Length}) {
-
-		| ------------ Pick a random target from the list, where:
-		| ------------ b = ${Math.Calc[${medPriTargets.Count[,]} + 1]} is the number of elements in the list
-		| ------------ And where ${Math.Calc[${Math.Rand[b]} + 1]} is a random element of it
-		/declare b int local ${Math.Calc[${Math.Rand[${Math.Calc[${medPriTargets.Count[,]} + 1]}]} + 1]}
-
-		| ------------ Set the offtankTargetID to the random element {b} as defined above
-		/varset crowdControlTargetID ${medPriTargets.Arg[${b},,]}
-
-		| ------------ Debug Info
-		/if (${Debug} || ${controlCrowdControlDebug}) {
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 100: Med Priority Target Chosen: crowdControlTargetID set to ${crowdControlTargetID}
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 101: medPriTargets set to ${medPriTargets} | ${medPriTargets.Arg[${b},,]} should be crowdControlTargetID
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 102: Random element number chosen: ${b}
-		}
-
-		/goto :beginCrowdControl
-	}
-
-	| ------------ If lowPriTargets has a length, then pick one (the first, it's closest) and begin tanking
-	/if (${lowPriTargets.Length}) {
-
-		| ------------ Pick a random target from the list, where:
-		| ------------ c = ${Math.Calc[${lowPriTargets.Count[,]} + 1]} is the number of elements in the list
-		| ------------ And where ${Math.Calc[${Math.Rand[c]} + 1]} is a random element of it
-		/declare c int local ${Math.Calc[${Math.Rand[${Math.Calc[${lowPriTargets.Count[,]} + 1]}]} + 1]}
-
-		| ------------ Set the offtankTargetID to the random element {c} as defined above
-		/varset crowdControlTargetID ${lowPriTargets.Arg[${c},,]}
-
-		| ------------ Debug Info
-		/if (${Debug} || ${controlCrowdControlDebug}) {
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 100: Low Priority Target Chosen: crowdControlTargetID set to ${crowdControlTargetID}
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 101: lowPriTargets set to ${lowPriTargets} | ${lowPriTargets.Arg[${c},,]} should be crowdControlTargetID
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 102: Random element number chosen: ${c}
-		}
-
-		/goto :beginCrowdControl
-	}
-
-	| ------------ Should never get this far, but if it does, return the to Assist.inc with the original target (no offtanking)
-	| ------------ Debug Info
-		/if (${Debug} || ${controlCrowdControlDebug}) {
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 110: Script should never get to this point.  Should have skipped to :beginCrowdControl
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 111: Script probably here because there were untargetable mob types in the SpawnCount
-			/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 112: Returning with mainAssistID (${mainAssistID})
-		}
-	
-	/return ${mainAssistID}
-
-	:beginCrowdControl
-
-|**
-	| ---------- Commented out, while it works, there are simply too many "baby names" that the tank will then ignore
-
-	| ---------- If the mob is a named mob, don't tank, go back to {mainAssistID}
-	/if (${Spawn[named id ${crowdControlTargetID}].ID}) {
-		/bc [+y+] NOT Crowd Controlling: ${Spawn[${crowdControlTargetID}].CleanName} (ID: ${crowdControlTargetID})
-		/return ${mainAssistID}
-	}
-**|
-|	| ------------ Turn on AutoAggro as there is an offtanking target to tank
-|	/varset AutoAggro TRUE
-
-	| ------------ Debug Info
-	/if (${Debug} || ${controlCrowdControlDebug}) {
-		/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 120: crowdControlTargetID set to ${crowdControlTargetID}
-|		/docommand /${controlCrowdControlDebugChannel} ${Me.CleanName}: 121: AutoAggro set to ${AutoAggro}
-	}	
-	
-	/bc [+r+] Crowd Controlling: ${Spawn[${crowdControlTargetID}].CleanName} (ID: ${crowdControlTargetID})
-	
-/return ${crowdControlTargetID}
-
-| ----------------------------------------------------|
-| -- Offtank status check 							 -|
-| ----------------------------------------------------|
-
-#event offtankStatus "#*# Offtank status"
-Sub event_offtankStatus
-
-	/declare tempAssistTarget int local
-
-	/echo 01: Target.ID set to ${Target.ID}
-
-	/call offtankMobs ${Target.ID}
-	/varset tempAssistTarget ${Macro.Return}
-
-	/echo 02: tempAssistTarget set to ${tempAssistTarget}
+	/if (${Me.Class.ShortName.Equal[BRD]}) /twist ${songSet}
 
 /return
