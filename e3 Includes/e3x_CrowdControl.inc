@@ -1,8 +1,11 @@
 | --------------------------------------------------------------------------------------|
-| -- e3x_CrowdControlv1.9.5	( extended functionality designed to work with e3.mac )	   -|
+| -- e3x_CrowdControlv1.9.6	( extended functionality designed to work with e3.mac )	   -|
 | -- Written by Smaht							                                       -|
 | --------------------------------------------------------------------------------------|
 | -- Contains extended functions for e3.mac to provide crown control.	               -|
+| --------------------------------------------------------------------------------------|
+| -- Version 1.9,6:  - Immunity tested and functional                                  -|
+| --                 - Added pets to "skipped" mob types                               -|
 | --------------------------------------------------------------------------------------|
 | -- Version 1.9,5:  - All major bugs worked out                                       -|
 | --                 - Bards spell casting fixed                                       -|
@@ -96,7 +99,7 @@ sub controlCrowdControl(int mainAssistID)
 		/varset targetToCheck ${NearestSpawn[${i}, npc radius ${xy_crowdControlRange} zradius ${z_crowdControlRange}].ID}
 
 		| ------------ Exit if targetToCheck would be of undesireable type OR targetToCheck is the mainAssistID
-		/if (${Select[${Spawn[${targetToCheck}].Type},PC,Untargetable,Mount,Corpse,Chest,Trigger,Trap,Timer,Item]} || (${targetToCheck} == ${mainAssistID})) {
+		/if (${Select[${Spawn[${targetToCheck}].Type},PC,Untargetable,Mount,Corpse,Chest,Trigger,Trap,Timer,Item,Pet]} || (${targetToCheck} == ${mainAssistID})) {
 		
 			| ------------ Debug Info
 			/if (${Debug} || ${controlCrowdControlDebug}) {
@@ -426,7 +429,7 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 				/delay 2
 				/goto :completeTheCast
 			}
-
+/echo ${castReturn}
 		}
 
 		/if (${Me.Class.ShortName.Equal[BRD]}) {
@@ -450,7 +453,8 @@ Sub event_crowdControlMobs(string line, string mezAgent, string targetMezMobs)
 			/if (${Debug} || ${crowdControlMobsDebug}) /docommand /${crowdControlMobsDebugChannel} ${Me.CleanName}: CCM080: Setting {arrayTargetMobs[${i},3]} to 0 as the mob is unmezzable
 
 			/varset arrayTargetMobs[${i},3] 0
-			/next i
+			/bc [+y+] Warning! ${Spawn[id ${arrayTargetMobs[${i},1]}].CleanName} (ID: ${arrayTargetMobs[${i},1]}) is not mezzable!
+			/goto :endMezLoop
 		}
 		/if (!${castReturn.Equal[SUCCESS]}) {
 
